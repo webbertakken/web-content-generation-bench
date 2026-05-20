@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Required for actions/deploy-pages@v4
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping queued runs in between.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # The deployed URL is https://<user>.github.io/<repo>/, so all apps live
+      # under the /<repo>/<app-id>/ subpath.
+      DEPLOY_BASE: /web-content-generation-bench
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Enable corepack (yarn berry)
+        run: corepack enable
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build all apps + landing page
+        # 5 restaurants is enough to show pagination variety without bloating
+        # the deploy artifact. The benchmark report runs at 1000 elsewhere.
+        run: yarn workspace @bench/harness deploy --scale 5 --base $DEPLOY_BASE
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: deploy-out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

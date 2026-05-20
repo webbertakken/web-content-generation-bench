@@ -184,7 +184,7 @@ const buildRestaurant = (
   const slug = `${slugify(name)}-${index}`;
   const tagline = pick(rng, TAGLINES);
   const imageNumber = (index % opts.headerImageCount) + 1;
-  const headerImage = `/images/header-${String(imageNumber).padStart(2, '0')}.jpg`;
+  const headerImage = `/images/header-${String(imageNumber).padStart(2, '0')}.svg`;
 
   // Pick distinct category names; fall back to indexed names if the pool is exhausted.
   const usedNames = new Set<string>();

@@ -14,6 +14,7 @@ export const APPS: AppConfig[] = [
   app('eleventy-react', 'Eleventy + React', '@bench/app-eleventy-react', '_site'),
   app('eleventy-preact', 'Eleventy + Preact', '@bench/app-eleventy-preact', '_site'),
   app('astro-react', 'Astro + React', '@bench/app-astro-react', 'dist'),
+  app('astro-preact', 'Astro + Preact', '@bench/app-astro-preact', 'dist'),
   app('nextjs', 'Next.js', '@bench/app-nextjs', 'out'),
   app('sveltekit', 'SvelteKit', '@bench/app-sveltekit', 'build'),
 ];

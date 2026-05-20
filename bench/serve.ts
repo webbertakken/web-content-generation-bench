@@ -14,6 +14,7 @@ const APP_PORTS: Record<string, number> = {
   'eleventy-react': 4001,
   'eleventy-preact': 4002,
   'astro-react': 4003,
+  'astro-preact': 4006,
   nextjs: 4004,
   sveltekit: 4005,
 };

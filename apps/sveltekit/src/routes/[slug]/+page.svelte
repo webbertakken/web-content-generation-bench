@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { PageData } from './$types';
+  import { withBase } from '@bench/data/base-path';
   import CartIsland from './CartIsland.svelte';
 
   interface Props {
@@ -18,7 +19,7 @@
 <header class="site-header">
   <img
     class="site-header__image"
-    src={restaurant.headerImage}
+    src={withBase(restaurant.headerImage)}
     alt=""
     width="1280"
     height="320"

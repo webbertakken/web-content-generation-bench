@@ -1,0 +1,18 @@
+---
+import type { Category } from '@bench/data';
+import ItemButton from './ItemButton.astro';
+
+interface Props {
+  category: Category;
+}
+const { category } = Astro.props as Props;
+---
+
+<section class="category" aria-labelledby={`cat-${category.id}`}>
+  <h2 id={`cat-${category.id}`} class="category__title">{category.name}</h2>
+  <ul class="category__items">
+    {category.items.map((item) => (
+      <li><ItemButton item={item} /></li>
+    ))}
+  </ul>
+</section>

@@ -14,6 +14,7 @@
     "@bench/data": "workspace:*",
     "@justeattakeaway/pie-button": "1.14.1",
     "@justeattakeaway/pie-card-container": "0.13.0",
+    "@justeattakeaway/pie-css": "1.1.1",
     "@justeattakeaway/pie-modal": "1.26.5",
     "@justeattakeaway/pie-radio": "1.1.13",
     "@justeattakeaway/pie-radio-group": "1.0.24",

@@ -1,4 +1,5 @@
 import type { Restaurant } from '@bench/data';
+import { withBase } from '@bench/data/base-path';
 import { loadBenchDataset } from '../../lib/dataset';
 import CartIsland from './CartIsland';
 
@@ -27,7 +28,7 @@ export default async function MenuPage({ params }: PageProps) {
       <header className="site-header">
         <img
           className="site-header__image"
-          src={restaurant.headerImage}
+          src={withBase(restaurant.headerImage)}
           alt=""
           width={1280}
           height={320}

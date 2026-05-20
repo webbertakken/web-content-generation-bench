@@ -1,6 +1,12 @@
+// BENCH_BASE drives the deployment subpath (e.g. /web-content-generation-bench/nextjs)
+// for GitHub Pages. Empty by default so local builds keep using root-relative URLs.
+const basePath = (process.env.BENCH_BASE ?? '').replace(/\/$/, '') || undefined;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  basePath,
+  assetPrefix: basePath,
   // Disable Next's image optimisation; we ship plain assets in /public.
   images: { unoptimized: true },
   // Pie web components ship raw TS; our workspace packages also ship TS.

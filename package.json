@@ -12,6 +12,7 @@
     "node": ">=22"
   },
   "scripts": {
+    "postinstall": "node scripts/sync-pie-tokens.mjs",
     "typecheck": "yarn workspaces foreach -A --parallel run typecheck",
     "test": "yarn workspaces foreach -A --parallel run test",
     "build": "yarn workspaces foreach -At run build",

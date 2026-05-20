@@ -1,6 +1,10 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
+// BENCH_BASE drives the deployment subpath (e.g. /web-content-generation-bench/sveltekit)
+// for GitHub Pages. Empty by default so local builds keep using root-relative URLs.
+const base = (process.env.BENCH_BASE ?? '').replace(/\/$/, '');
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: vitePreprocess(),
@@ -12,6 +16,7 @@ const config = {
       precompress: false,
       strict: true,
     }),
+    paths: base ? { base } : {},
     prerender: {
       handleHttpError: 'warn',
     },

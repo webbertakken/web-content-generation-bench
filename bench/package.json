@@ -8,6 +8,7 @@
     "render-reports": "tsx render-reports.ts",
     "check-parity": "tsx check-parity.ts",
     "serve": "tsx serve.ts",
+    "deploy": "tsx deploy.ts",
     "typecheck": "tsc --noEmit",
     "test": "echo \"(harness is exercised by run.ts)\" && exit 0"
   },
