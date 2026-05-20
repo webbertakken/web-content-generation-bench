@@ -117,31 +117,32 @@ Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally 
 
 ### 10. Visual parity check
 
-- [ ] Playwright snapshot test: build each app for 1 restaurant, screenshot the menu page, diff against a reference
-- [ ] If diffs are unacceptable, fix the offending app
-- [ ] Commit
+- [x] `bench/check-parity.ts` validates each app produces the expected DOM (right number of buttons, categories, cart aside, restaurant name)
+- [ ] Full Playwright screenshot diff (deferred to a follow-up; the structural check covers the bug class we cared about)
+- [x] Commit
 
 ### 11. Benchmark harness (`bench/`)
 
-- [ ] `bench/run.ts`: for each app, run cold build N=3 with 1 restaurant and N=3 with 10k, record wall-clock from `performance.now()`
-- [ ] Capture peak RSS via `process.resourceUsage()` or `pidusage`
-- [ ] Compute bundle sizes by walking the output dir for `.js`, `.css`, etc., distinguishing initial vs lazy chunks
-- [ ] Compute LOC via `cloc` or `tokei`
-- [ ] Compute cyclomatic + cognitive complexity per Q5
-- [ ] Output `bench/results/<timestamp>/{results.json, report.md}`
-- [ ] Commit
+- [x] `bench/run.ts`: per app, runs `yarn workspace ... build` N times, records wall-clock
+- [x] `bench/lib/bundle-stats.ts`: walks output dir, distinguishes initial vs total JS, parses `<script src>`, `<link rel=modulepreload>`, `<is-land import>`, `<astro-island component-url>`
+- [x] `bench/lib/code-stats.ts`: LOC + file count + per-extension breakdown (LOC by line heuristic, language-agnostic)
+- [x] `bench/render-reports.ts`: re-render markdown + HTML from cached results.json with optional rescan
+- [x] Output `bench/results/<ts>/{results.json, report.md, index.html}` and copies to `docs/`
+- [ ] Peak RSS / cyclomatic complexity / cognitive complexity (deferred; not required for the chosen metric set)
+- [x] Commit
 
 ### 12. Reproducibility
 
-- [ ] Document exact versions of every framework in `docs/versions.md`
-- [ ] `bench/verify.ts`: re-run from clean checkout, confirm results within tolerance
-- [ ] CI workflow: smoke build for each app on every PR (not full 10k, just 100)
-- [ ] Commit
+- [x] Framework versions pinned in each app's `package.json` (Eleventy 3.1.5, Astro 6.3.5, Next.js 16.2.6, SvelteKit 2.60.1, Svelte 5.55.8, React 19.2.6, Preact 10.29.2)
+- [x] CI workflow `.github/workflows/smoke.yml`: install, test, typecheck, build all apps, run a 1-page bench
+- [ ] `bench/verify.ts` for tolerance-bounded re-runs (deferred; harness median-of-N already smooths over noise)
+- [x] Commit
 
 ### 13. Report
 
-- [ ] `docs/report.md`: results table, charts (markdown-mermaid or static PNG), narrative observations
-- [ ] Commit and tag `v0.1.0`
+- [x] `docs/report.md`: results table + per-app detail
+- [x] `docs/index.html`: full overview with summary cards, six bar charts, per-framework detail, dark/light mode, WCAG 2.2 AA contrast and ARIA-labelled bars
+- [ ] Tag `v0.1.0` (held until user gives the nod)
 
 ---
 
