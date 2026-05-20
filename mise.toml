@@ -1,0 +1,6 @@
+[tools]
+node = "22"
+
+[env]
+# Enable corepack so yarn berry is picked up from package.json's packageManager field.
+COREPACK_ENABLE_DOWNLOAD_PROMPT = "0"

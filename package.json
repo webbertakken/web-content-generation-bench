@@ -1,0 +1,26 @@
+{
+  "name": "web-content-generation-bench",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "yarn@4.15.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "bench"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint": "yarn workspaces foreach -A --parallel run lint",
+    "typecheck": "yarn workspaces foreach -A --parallel run typecheck",
+    "test": "yarn workspaces foreach -A --parallel run test",
+    "build": "yarn workspaces foreach -At run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.3.3",
+    "typescript": "5.6.3"
+  }
+}

@@ -1,0 +1,15 @@
+node_modules/
+.yarn/
+dist/
+build/
+out/
+_site/
+.next/
+.svelte-kit/
+.astro/
+.eleventy-cache/
+bench/results/
+packages/data/dist/
+yarn.lock
+*.min.js
+*.min.css
