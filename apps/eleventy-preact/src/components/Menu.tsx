@@ -1,4 +1,5 @@
 import type { Restaurant } from '@bench/data';
+import { withBase } from '@bench/data/base-path';
 import { CategorySection } from './CategorySection.js';
 import { CartPlaceholder } from './CartPlaceholder.js';
 
@@ -12,13 +13,13 @@ export const Menu = ({ restaurant }: MenuProps) => (
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>{`${restaurant.name} - menu`}</title>
-      <link rel="stylesheet" href="/styles/menu.css" />
+      <link rel="stylesheet" href={withBase('/styles/menu.css')} />
     </head>
     <body>
       <header className="site-header">
         <img
           className="site-header__image"
-          src={restaurant.headerImage}
+          src={withBase(restaurant.headerImage)}
           alt=""
           width={1280}
           height={320}
@@ -48,8 +49,8 @@ export const Menu = ({ restaurant }: MenuProps) => (
       />
 
       {/* @11ty/is-land bootstrap. The cart island lazy-loads on idle. */}
-      <script type="module" src="/scripts/is-land.js" />
-      <is-land {...{ 'on:idle': '', import: '/scripts/cart-island.js' }}>
+      <script type="module" src={withBase('/scripts/is-land.js')} />
+      <is-land {...{ 'on:idle': '', import: withBase('/scripts/cart-island.js') }}>
         <span hidden>Loading cart...</span>
       </is-land>
     </body>

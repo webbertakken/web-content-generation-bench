@@ -9,7 +9,8 @@
     ".": "./src/index.ts",
     "./generate": "./src/generate.ts",
     "./load": "./src/load.ts",
-    "./types": "./src/types.ts"
+    "./types": "./src/types.ts",
+    "./base-path": "./src/base-path.ts"
   },
   "scripts": {
     "test": "vitest run",
