@@ -33,7 +33,6 @@ const parseArgs = (argv: readonly string[]): CliArgs => {
       out = value;
       i += 1;
     } else if (arg === '--help' || arg === '-h') {
-      // eslint-disable-next-line no-console
       console.log('Usage: tsx src/cli.ts [--count N] [--seed STRING] [--out PATH]');
       process.exit(0);
     } else {
@@ -55,7 +54,6 @@ const main = (): void => {
     (sum, r) => sum + r.categories.reduce((s, c) => s + c.items.length, 0),
     0,
   );
-  // eslint-disable-next-line no-console
   console.log(
     `Generated ${dataset.restaurants.length} restaurants (${totalItems} items) in ${ms} ms -> ${outPath}`,
   );

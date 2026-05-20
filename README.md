@@ -44,12 +44,13 @@ yarn install
 ## Common commands
 
 ```bash
-yarn lint        # all workspaces
 yarn typecheck   # all workspaces
 yarn test        # all workspaces
 yarn build       # all workspaces (topological)
-yarn format      # prettier write
+yarn format      # oxfmt --write
 ```
+
+Linting is intentionally off for now; oxlint will be added once the prototype works.
 
 ## Running the benchmark
 
