@@ -7,6 +7,9 @@ const nextConfig = {
   output: 'export',
   basePath,
   assetPrefix: basePath,
+  // Emit <slug>/index.html instead of <slug>.html so GitHub Pages (and any
+  // static server without an .html fallback) serves /<slug>/ correctly.
+  trailingSlash: true,
   // Disable Next's image optimisation; we ship plain assets in /public.
   images: { unoptimized: true },
   // Pie web components ship raw TS; our workspace packages also ship TS.

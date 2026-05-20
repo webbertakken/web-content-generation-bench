@@ -5,6 +5,9 @@ import type { Restaurant } from '@bench/data';
 import CategorySection from '../components/CategorySection.astro';
 import CartIsland from '../components/CartIsland.tsx';
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+const withBase = (path: string) => `${BASE}${path}`;
+
 export async function getStaticPaths() {
   // Astro bundles this module, so import.meta.url shifts at runtime. cwd is
   // the app directory (set by build.mjs), so a relative resolve is reliable.
@@ -34,13 +37,13 @@ const { restaurant } = Astro.props as Props;
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
     />
-    <link rel="stylesheet" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/styles/menu.css`} />
+    <link rel="stylesheet" href={withBase('/styles/menu.css')} />
   </head>
   <body>
     <header class="site-header">
       <img
         class="site-header__image"
-        src={restaurant.headerImage}
+        src={withBase(restaurant.headerImage)}
         alt=""
         width="1280"
         height="320"
