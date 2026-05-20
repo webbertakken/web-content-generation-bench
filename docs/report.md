@@ -3,14 +3,14 @@
 Pages built per app: **1000**. Runs per app: **3** (median reported).
 Generated: 2026-05-20T17:11:18.961Z.
 
-| Framework | Cold build | Per page | Initial JS | Initial CSS | Total JS | HTML/page | Output total | Source LOC | Files |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Eleventy + React | 24.25 s | 24 ms | 378.8 KB | 4.9 KB | 378.8 KB | 271.0 KB | 344.32 MB | 625 | 13 |
-| Eleventy + Preact | 14.56 s | 15 ms | 203.4 KB | 4.9 KB | 203.4 KB | 270.9 KB | 344.06 MB | 634 | 13 |
-| Astro + React | 26.66 s | 27 ms | 344.8 KB | 4.9 KB | 364.0 KB | 400.7 KB | 507.27 MB | 519 | 9 |
-| Astro + Preact | 24.00 s | 24 ms | 164.2 KB | 4.9 KB | 198.3 KB | 400.7 KB | 507.12 MB | 517 | 9 |
-| Next.js | 59.88 s | 60 ms | 631.7 KB | 151.1 KB | 918.3 KB | 534.3 KB | 1978.93 MB | 549 | 10 |
-| SvelteKit | 42.60 s | 43 ms | 87.2 KB | 4.9 KB | 252.7 KB | 261.6 KB | 470.18 MB | 484 | 10 |
+| Framework         | Cold build | Per page | Initial JS | Initial CSS | Total JS | HTML/page | Output total | Source LOC | Files |
+| ----------------- | ---------- | -------- | ---------- | ----------- | -------- | --------- | ------------ | ---------- | ----- |
+| Eleventy + React  | 24.25 s    | 24 ms    | 378.8 KB   | 4.9 KB      | 378.8 KB | 271.0 KB  | 344.32 MB    | 625        | 13    |
+| Eleventy + Preact | 14.56 s    | 15 ms    | 203.4 KB   | 4.9 KB      | 203.4 KB | 270.9 KB  | 344.06 MB    | 634        | 13    |
+| Astro + React     | 26.66 s    | 27 ms    | 344.8 KB   | 4.9 KB      | 364.0 KB | 400.7 KB  | 507.27 MB    | 519        | 9     |
+| Astro + Preact    | 24.00 s    | 24 ms    | 164.2 KB   | 4.9 KB      | 198.3 KB | 400.7 KB  | 507.12 MB    | 517        | 9     |
+| Next.js           | 59.88 s    | 60 ms    | 631.7 KB   | 151.1 KB    | 918.3 KB | 534.3 KB  | 1978.93 MB   | 549        | 10    |
+| SvelteKit         | 42.60 s    | 43 ms    | 87.2 KB    | 4.9 KB      | 252.7 KB | 261.6 KB  | 470.18 MB    | 484        | 10    |
 
 ## Per-app detail
 
