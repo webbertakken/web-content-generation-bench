@@ -46,15 +46,10 @@
     cart = setLineQuantity(cart, itemId, sauceId, qty);
   };
 
-  onMount(async () => {
-    await Promise.all([
-      import('@justeattakeaway/pie-modal'),
-      import('@justeattakeaway/pie-button'),
-      import('@justeattakeaway/pie-radio-group'),
-      import('@justeattakeaway/pie-radio'),
-    ]);
-    pieReady = true;
-
+  // onMount's callback must return either a cleanup function or undefined,
+  // not a Promise that resolves to a cleanup function. We register the click
+  // handler synchronously and kick off the Pie imports separately.
+  onMount(() => {
     const onClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
       const button = target?.closest('button.item') as HTMLButtonElement | null;
@@ -66,7 +61,19 @@
       activeItem = item;
     };
     document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+
+    Promise.all([
+      import('@justeattakeaway/pie-modal'),
+      import('@justeattakeaway/pie-button'),
+      import('@justeattakeaway/pie-radio-group'),
+      import('@justeattakeaway/pie-radio'),
+    ]).then(() => {
+      pieReady = true;
+    });
+
+    return () => {
+      document.removeEventListener('click', onClick);
+    };
   });
 </script>
 
