@@ -147,6 +147,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bench/app-eleventy-preact@workspace:apps/eleventy-preact":
+  version: 0.0.0-use.local
+  resolution: "@bench/app-eleventy-preact@workspace:apps/eleventy-preact"
+  dependencies:
+    "@11ty/eleventy": "npm:3.1.5"
+    "@11ty/is-land": "npm:5.0.1"
+    "@bench/cart-core": "workspace:*"
+    "@bench/data": "workspace:*"
+    "@justeattakeaway/pie-button": "npm:1.14.1"
+    "@justeattakeaway/pie-card-container": "npm:0.13.0"
+    "@justeattakeaway/pie-modal": "npm:1.26.5"
+    "@justeattakeaway/pie-radio": "npm:1.1.13"
+    "@justeattakeaway/pie-radio-group": "npm:1.0.24"
+    "@types/react": "npm:19.0.2"
+    "@types/react-dom": "npm:19.0.2"
+    esbuild: "npm:0.24.0"
+    preact: "npm:10.29.2"
+    preact-render-to-string: "npm:6.7.0"
+    rimraf: "npm:6.0.1"
+    typescript: "npm:5.6.3"
+  languageName: unknown
+  linkType: soft
+
 "@bench/app-eleventy-react@workspace:apps/eleventy-react":
   version: 0.0.0-use.local
   resolution: "@bench/app-eleventy-react@workspace:apps/eleventy-react"
@@ -2840,6 +2863,22 @@ __metadata:
     posthtml-parser: "npm:^0.11.0"
     posthtml-render: "npm:^3.0.0"
   checksum: 10c0/7058d1a3e88126f007476588e3e6275894623ecc6d33a7d9eb38587bad2d3eac86070e92d2c30a7480bd704cf863fc3ac14ba722ff5a6e7d10e01d36d8b1b3a8
+  languageName: node
+  linkType: hard
+
+"preact-render-to-string@npm:6.7.0":
+  version: 6.7.0
+  resolution: "preact-render-to-string@npm:6.7.0"
+  peerDependencies:
+    preact: ">=10 || >= 11.0.0-0"
+  checksum: 10c0/40b86e9efe538de784a273b4f3d9bcb956c25d8d2f408700fa09824ddad389e3e5a591712690e5e207a832aace92490b8e95df0311c949dc148a1fbd355b31b2
+  languageName: node
+  linkType: hard
+
+"preact@npm:10.29.2":
+  version: 10.29.2
+  resolution: "preact@npm:10.29.2"
+  checksum: 10c0/2ee161274e475804524608d42bba8c79920636b322293248796a9e5bf4c3332336f8c0eca1b1566ed09cdee95e408eb20b5b7613d95820ea6b6eb8fc090ef60a
   languageName: node
   linkType: hard
 

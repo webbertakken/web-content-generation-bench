@@ -66,13 +66,14 @@ Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally 
 
 ### 4. App: Eleventy + React (`apps/eleventy-react/`)
 
-- [ ] Init Eleventy with `@11ty/eleventy` and JSX plugin (`@11ty/eleventy-plugin-render` or `eleventy-plugin-react`)
-- [ ] Configure pagination over `data.json` to emit one page per restaurant
-- [ ] Build the menu template (header, 5 category sections, basket aside)
-- [ ] Wire `pie-modal` for sauce selection
-- [ ] Hydrate cart logic per Q2 decision
-- [ ] Verify single-restaurant build, then 10k build
-- [ ] Commit
+- [x] Init Eleventy 3.1.5 with React 19.2.6, pre-bundled server via esbuild
+- [x] Configure pagination over `data.json` to emit one page per restaurant
+- [x] Build the menu template (header, 5 category sections, basket aside)
+- [x] Wire `pie-modal` + `pie-button` + `pie-radio-group` + `pie-radio` for sauce selection
+- [x] Islands via `@11ty/is-land`, lazy-loaded on idle, cart hydrates via createRoot
+- [x] Verified single-restaurant build (~0.7s) and 1000-restaurant build (~24.5s, 23.8 ms/page)
+- [x] Initial JS bundle: 358KB (minified, includes React + Pie + cart)
+- [x] Commit
 
 ### 5. App: Eleventy + Preact (`apps/eleventy-preact/`)
 

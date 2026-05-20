@@ -25,9 +25,19 @@ fresh(tmp);
 fresh(resolve(here, '_site'));
 mkdirSync(publicOut, { recursive: true });
 
-// 1. Server bundle: TSX -> ESM that the .11ty.js template can import.
-//    CJS dependencies (react-dom/server) use require() internally; the banner
-//    injects a createRequire so that survives the ESM output format.
+// React-to-Preact alias map shared between the server and client bundles.
+// Components import from 'react' for ergonomic parity with the React app;
+// esbuild rewrites those imports to preact/compat at build time.
+const preactAliases = {
+  react: 'preact/compat',
+  'react-dom': 'preact/compat',
+  'react-dom/client': 'preact/compat',
+  'react-dom/server': 'preact-render-to-string',
+  'react/jsx-runtime': 'preact/jsx-runtime',
+  'react/jsx-dev-runtime': 'preact/jsx-runtime',
+};
+
+// 1. Server bundle (ESM, with createRequire banner for CJS interop).
 const serverStart = performance.now();
 await esbuild({
   entryPoints: [resolve(here, 'src', 'server-entry.tsx')],
@@ -39,12 +49,12 @@ await esbuild({
   jsx: 'automatic',
   loader: { '.tsx': 'tsx', '.ts': 'ts' },
   external: ['node:*'],
+  alias: preactAliases,
   banner: {
     js: [
       "import { createRequire as __bench_createRequire } from 'node:module';",
       "import { fileURLToPath as __bench_fileURLToPath } from 'node:url';",
       'const require = __bench_createRequire(import.meta.url);',
-      '// eslint-disable-next-line',
       'const __filename = __bench_fileURLToPath(import.meta.url);',
       "const __dirname = __filename.substring(0, __filename.lastIndexOf('/'));",
     ].join('\n'),
@@ -53,7 +63,7 @@ await esbuild({
 });
 log('server bundle', serverStart);
 
-// 2. Client island bundle (the React cart + Pie web components).
+// 2. Client island bundle (React-aliased -> Preact, plus Pie web components).
 const clientStart = performance.now();
 await esbuild({
   entryPoints: [resolve(here, 'src', 'client', 'cart-island.tsx')],
@@ -65,20 +75,19 @@ await esbuild({
   jsx: 'automatic',
   minify: true,
   loader: { '.tsx': 'tsx', '.ts': 'ts' },
+  alias: preactAliases,
   logLevel: 'warning',
 });
 log('client bundle (cart + pie)', clientStart);
 
-// 3. is-land library passthrough (yarn berry may hoist to the workspace root,
-//    so resolve via Node rather than assuming app-local node_modules).
-const { createRequire: __createReq } = await import('node:module');
-const __req = __createReq(resolve(here, 'package.json'));
-const isLandMain = __req.resolve('@11ty/is-land');
+// 3. is-land library passthrough (yarn may hoist; resolve via Node).
+const { createRequire } = await import('node:module');
+const requireFromApp = createRequire(resolve(here, 'package.json'));
+const isLandMain = requireFromApp.resolve('@11ty/is-land');
 cpSync(isLandMain, resolve(publicOut, 'is-land.js'));
 
-// 4. Eleventy. Eleventy 3 ships cmd.cjs but does not list it (or package.json)
-//    in the exports map, so use the main entry and walk up to find the dir.
-const eleventyMain = __req.resolve('@11ty/eleventy'); // ../src/Eleventy.js
+// 4. Eleventy build.
+const eleventyMain = requireFromApp.resolve('@11ty/eleventy');
 const eleventyBin = resolve(eleventyMain, '..', '..', 'cmd.cjs');
 const eleventyStart = performance.now();
 await new Promise((resolveProm, rejectProm) => {
