@@ -1,0 +1,20 @@
+---
+import type { Item } from '@bench/data';
+
+interface Props {
+  item: Item;
+}
+const { item } = Astro.props as Props;
+const formatPrice = (cents: number) => `\u00a3${(cents / 100).toFixed(2)}`;
+---
+
+<button
+  type="button"
+  class="item"
+  data-item-id={item.id}
+  aria-label={`Add ${item.name} to your basket`}
+>
+  <span class="item__name">{item.name}</span>
+  <span class="item__description">{item.description}</span>
+  <span class="item__price">{formatPrice(item.price)}</span>
+</button>

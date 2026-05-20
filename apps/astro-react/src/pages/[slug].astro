@@ -1,0 +1,58 @@
+---
+import { resolve } from 'node:path';
+import { loadDataset } from '@bench/data/load';
+import type { Restaurant } from '@bench/data';
+import CategorySection from '../components/CategorySection.astro';
+import CartIsland from '../components/CartIsland.tsx';
+
+export async function getStaticPaths() {
+  // Astro bundles this module, so import.meta.url shifts at runtime. cwd is
+  // the app directory (set by build.mjs), so a relative resolve is reliable.
+  const datasetPath = resolve(process.cwd(), '..', '..', 'packages', 'data', 'data.json');
+  const dataset = loadDataset(datasetPath);
+  return dataset.restaurants.map((restaurant: Restaurant) => ({
+    params: { slug: restaurant.slug },
+    props: { restaurant },
+  }));
+}
+
+interface Props {
+  restaurant: Restaurant;
+}
+const { restaurant } = Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{`${restaurant.name} - menu`}</title>
+    <link rel="stylesheet" href="/styles/menu.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <img
+        class="site-header__image"
+        src={restaurant.headerImage}
+        alt=""
+        width="1280"
+        height="320"
+      />
+      <div class="site-header__overlay">
+        <h1 class="site-header__title">{restaurant.name}</h1>
+        <p class="site-header__tagline">{restaurant.tagline}</p>
+      </div>
+    </header>
+
+    <main class="menu-layout">
+      <section class="menu" aria-label="Menu">
+        {restaurant.categories.map((category) => (
+          <CategorySection category={category} />
+        ))}
+      </section>
+
+      <CartIsland restaurant={restaurant} client:idle />
+    </main>
+  </body>
+</html>

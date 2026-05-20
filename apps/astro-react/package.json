@@ -1,0 +1,32 @@
+{
+  "name": "@bench/app-astro-react",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "astro check",
+    "test": "echo \"(no unit tests; covered by build + bench)\" && exit 0",
+    "clean": "rimraf dist .astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.4",
+    "@astrojs/react": "5.0.5",
+    "@bench/cart-core": "workspace:*",
+    "@bench/data": "workspace:*",
+    "@justeattakeaway/pie-button": "1.14.1",
+    "@justeattakeaway/pie-card-container": "0.13.0",
+    "@justeattakeaway/pie-modal": "1.26.5",
+    "@justeattakeaway/pie-radio": "1.1.13",
+    "@justeattakeaway/pie-radio-group": "1.0.24",
+    "astro": "6.3.5",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "rimraf": "6.0.1",
+    "typescript": "5.6.3"
+  }
+}
