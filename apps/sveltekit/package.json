@@ -1,0 +1,32 @@
+{
+  "name": "@bench/app-sveltekit",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json",
+    "test": "echo \"(no unit tests; covered by build + bench)\" && exit 0",
+    "clean": "rimraf build .svelte-kit"
+  },
+  "dependencies": {
+    "@bench/cart-core": "workspace:*",
+    "@bench/data": "workspace:*",
+    "@justeattakeaway/pie-button": "1.14.1",
+    "@justeattakeaway/pie-card-container": "0.13.0",
+    "@justeattakeaway/pie-modal": "1.26.5",
+    "@justeattakeaway/pie-radio": "1.1.13",
+    "@justeattakeaway/pie-radio-group": "1.0.24",
+    "@sveltejs/adapter-static": "3.0.10",
+    "@sveltejs/kit": "2.60.1",
+    "@sveltejs/vite-plugin-svelte": "7.1.2",
+    "svelte": "5.55.8",
+    "vite": "8.0.13"
+  },
+  "devDependencies": {
+    "@types/node": "22.7.5",
+    "rimraf": "6.0.1",
+    "svelte-check": "4.4.8",
+    "typescript": "5.6.3"
+  }
+}
