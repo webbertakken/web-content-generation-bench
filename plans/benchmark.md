@@ -42,13 +42,13 @@ Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally 
 
 ### 1. Shared data package (`packages/data/`)
 
-- [ ] Define TypeScript types: `Restaurant`, `Category`, `Item`, `Sauce`
-- [ ] Write deterministic mock generator using a seeded PRNG (so all frameworks see identical input)
-- [ ] Generator parameters: restaurant count, categories per restaurant (fixed at 5), items per category (5-200, seeded), sauce options per item
-- [ ] Header image: bundle 1 local placeholder image; reference by relative path
-- [ ] Export `generate(seed, count)` and a CLI `pnpm --filter @bench/data generate -- --count 10000 --out ./data.json`
-- [ ] Unit tests: determinism (same seed = same output), shape validation, item-count bounds
-- [ ] Commit
+- [x] Define TypeScript types: `Restaurant`, `Category`, `Item`, `Sauce`
+- [x] Write deterministic mock generator using a seeded PRNG (so all frameworks see identical input)
+- [x] Generator parameters: restaurant count, categories per restaurant (fixed at 5), items per category (5-200, seeded), sauce options per item
+- [x] CLI `yarn workspace @bench/data generate --count 1000 --out ./data.json`
+- [x] Unit tests: determinism (same seed = same output), shape validation, item-count bounds (14 tests, all green)
+- [ ] Header image: bundle local placeholder images; reference by relative path (deferred to app integration step)
+- [x] Commit
 
 ### 2. Shared cart logic package (`packages/cart-core/`)
 
