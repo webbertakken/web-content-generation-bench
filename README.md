@@ -54,4 +54,19 @@ Linting is intentionally off for now; oxlint will be added once the prototype wo
 
 ## Running the benchmark
 
-(Filled in once the bench harness lands; see plan section 11.)
+```bash
+yarn data                                  # regenerate the 1000-restaurant dataset
+yarn workspace @bench/harness bench        # run all 5 frameworks, 3 cold builds each
+yarn workspace @bench/harness check-parity # confirm all apps produced equivalent DOM
+```
+
+Results land in `bench/results/<timestamp>/` and the latest copies overwrite `docs/index.html` (interactive overview with charts) and `docs/report.md` (plain text).
+
+If you tweak the report templates and want to refresh without re-running every build:
+
+```bash
+yarn workspace @bench/harness render-reports          # re-render the latest results
+yarn workspace @bench/harness render-reports --rescan # also rescan on-disk bundle stats
+```
+
+See [`docs/index.html`](docs/index.html) for the latest overview.

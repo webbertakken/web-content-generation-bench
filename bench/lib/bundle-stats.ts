@@ -1,5 +1,5 @@
 import { readdirSync, statSync, readFileSync, existsSync } from 'node:fs';
-import { extname, join } from 'node:path';
+import { dirname, extname, isAbsolute, join, resolve } from 'node:path';
 import type { BundleStats } from './types';
 
 interface AssetSummary {
@@ -44,33 +44,55 @@ const walk = (dir: string, cb: (file: string) => void): void => {
  */
 /**
  * "Initial JS" here is the bytes a browser will fetch to make the page
- * interactive: anything in <script src>, <link rel=modulepreload>, and the
- * `import="..."` of <is-land>. That captures lazy islands too, since the
- * browser fetches them as soon as the page is idle.
+ * interactive: anything in <script src>, <link rel=modulepreload>, the
+ * `import="..."` of <is-land>, and Astro's <astro-island component-url=...,
+ * renderer-url=...>. That captures lazy islands too, since the browser
+ * fetches them as soon as the page is idle.
  */
 const collectInitialAssets = (outDir: string, htmlPath: string): { js: number; css: number } => {
   if (!existsSync(htmlPath)) return { js: 0, css: 0 };
   const html = readFileSync(htmlPath, 'utf8');
+  const htmlDir = dirname(htmlPath);
   const collectMatches = (re: RegExp): string[] =>
     Array.from(html.matchAll(re)).map((m) => m[1] ?? '');
 
   const jsRefs = new Set<string>([
     ...collectMatches(/<script[^>]+src=["']([^"']+)["']/gi),
     ...collectMatches(/<link[^>]+rel=["']modulepreload["'][^>]+href=["']([^"']+)["']/gi),
-    ...collectMatches(/<link[^>]+href=["']([^"']+\.js)["'][^>]+rel=["']modulepreload["']/gi),
+    ...collectMatches(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["']modulepreload["']/gi),
     ...collectMatches(/<is-land[^>]+import=["']([^"']+)["']/gi),
+    ...collectMatches(/component-url=["']([^"']+)["']/gi),
+    ...collectMatches(/renderer-url=["']([^"']+)["']/gi),
   ]);
   const cssRefs = new Set<string>([
     ...collectMatches(/<link[^>]+rel=["']stylesheet["'][^>]+href=["']([^"']+)["']/gi),
     ...collectMatches(/<link[^>]+href=["']([^"']+\.css)["'][^>]+rel=["']stylesheet["']/gi),
   ]);
 
+  /**
+   * Resolves an asset reference to a file inside outDir. Tries, in order:
+   *   1. Absolute (root-relative) like `/styles/x.css` -> `<outDir>/styles/x.css`.
+   *   2. Relative to the HTML file (SvelteKit uses `../_app/x.js`).
+   *   3. Direct join with outDir (for unprefixed paths).
+   *
+   * Returns null if no candidate exists.
+   */
   const resolveAsset = (ref: string): string | null => {
     if (!ref) return null;
     if (ref.startsWith('http://') || ref.startsWith('https://')) return null;
-    const trimmed = ref.replace(/^\/+/, '');
-    const candidate = join(outDir, trimmed);
-    return existsSync(candidate) ? candidate : null;
+    const candidates: string[] = [];
+    if (ref.startsWith('/')) {
+      candidates.push(join(outDir, ref.replace(/^\/+/, '')));
+    } else if (!isAbsolute(ref)) {
+      candidates.push(resolve(htmlDir, ref));
+      candidates.push(join(outDir, ref));
+    } else {
+      candidates.push(ref);
+    }
+    for (const c of candidates) {
+      if (existsSync(c)) return c;
+    }
+    return null;
   };
 
   let js = 0;

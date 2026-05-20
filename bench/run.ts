@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 import { APPS, REPO_ROOT, findSampleHtml } from './lib/apps';
 import { collectBundleStats } from './lib/bundle-stats';
 import { collectCodeStats } from './lib/code-stats';
+import { renderHtmlReport } from './lib/html-report';
 import type { ReportRow, RunResult, AppConfig } from './lib/types';
 
 interface CliOptions {
@@ -230,14 +231,19 @@ const main = async (): Promise<void> => {
   };
   writeFileSync(resolve(opts.outDir, 'results.json'), JSON.stringify(reportJson, null, 2));
   const md = renderReport(rows, opts);
+  const html = renderHtmlReport(rows, opts);
   writeFileSync(resolve(opts.outDir, 'report.md'), md);
-  // Also overwrite the canonical latest report at docs/report.md so it is easy to read.
+  writeFileSync(resolve(opts.outDir, 'index.html'), html);
+  // Also overwrite the canonical latest reports under docs/ so they are easy
+  // to read. The HTML is the headline overview.
   const docsDir = resolve(REPO_ROOT, 'docs');
   mkdirSync(docsDir, { recursive: true });
   writeFileSync(resolve(docsDir, 'report.md'), md);
+  writeFileSync(resolve(docsDir, 'index.html'), html);
 
   console.log(`\n[bench] report written to ${opts.outDir}`);
-  console.log(`[bench] latest copy at docs/report.md`);
+  console.log(`[bench] overview at docs/index.html`);
+  console.log(`[bench] markdown at docs/report.md`);
   console.log(`\n${md}`);
 };
 
