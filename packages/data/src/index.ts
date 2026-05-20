@@ -1,3 +1,3 @@
-export * from './types.js';
-export { generate } from './generate.js';
-export { loadDataset, DATASET_RELATIVE_PATH } from './load.js';
+export * from './types';
+export { generate } from './generate';
+export { loadDataset, DATASET_RELATIVE_PATH } from './load';

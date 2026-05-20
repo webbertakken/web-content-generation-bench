@@ -1,5 +1,5 @@
 import seedrandom from 'seedrandom';
-import type { Category, Dataset, GenerateOptions, Item, Restaurant, Sauce } from './types.js';
+import type { Category, Dataset, GenerateOptions, Item, Restaurant, Sauce } from './types';
 
 const CATEGORY_NAMES = [
   'Starters',

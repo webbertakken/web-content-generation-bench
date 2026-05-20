@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generate } from './generate.js';
+import { generate } from './generate';
 
 describe('generate', () => {
   it('produces exactly the requested number of restaurants', () => {

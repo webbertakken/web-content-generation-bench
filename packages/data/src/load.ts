@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import type { Dataset } from './types.js';
+import type { Dataset } from './types';
 
 /**
  * Conventional relative location of the generated dataset from this package.

@@ -8,7 +8,7 @@ import {
   cartTotalCents,
   cartItemCount,
   serialiseForCheckout,
-} from './cart.js';
+} from './cart';
 
 const sauce = (id: string, name: string, surcharge = 0): Sauce => ({ id, name, surcharge });
 

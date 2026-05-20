@@ -1,6 +1,6 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { generate } from './generate.js';
+import { generate } from './generate';
 
 interface CliArgs {
   count: number;
