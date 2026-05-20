@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "types": ["node"],
+    "noImplicitOverride": false
+  },
+  "include": ["src/**/*", "build.mjs", "eleventy.config.mjs"],
+  "exclude": ["node_modules", "build-tmp", "_site"]
+}

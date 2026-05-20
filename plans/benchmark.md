@@ -52,10 +52,10 @@ Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally 
 
 ### 2. Shared cart logic package (`packages/cart-core/`)
 
-- [ ] Pure functions: `addItem`, `removeItem`, `updateQuantity`, `totalPrice`, `serialiseForCheckout`
-- [ ] Framework-agnostic (no React, no Svelte). Just TypeScript.
-- [ ] Unit tests covering every path, including empty cart, duplicate items, sauce variations
-- [ ] Commit
+- [x] Pure functions: `addLine`, `removeLine`, `setLineQuantity`, `cartTotalCents`, `cartItemCount`, `serialiseForCheckout`
+- [x] Framework-agnostic (no React, no Svelte). Just TypeScript.
+- [x] Unit tests covering every path, including empty cart, duplicate items, sauce variations (18 tests, all green)
+- [x] Commit
 
 ### 3. Pie design system integration probe
 

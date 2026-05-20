@@ -1,0 +1,32 @@
+{
+  "name": "@bench/app-eleventy-react",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"(no unit tests; covered by build + bench)\" && exit 0",
+    "clean": "rimraf _site .eleventy-cache build-tmp"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "3.1.5",
+    "@11ty/is-land": "5.0.1",
+    "@bench/cart-core": "workspace:*",
+    "@bench/data": "workspace:*",
+    "@justeattakeaway/pie-button": "1.14.1",
+    "@justeattakeaway/pie-card-container": "0.13.0",
+    "@justeattakeaway/pie-modal": "1.26.5",
+    "@justeattakeaway/pie-radio": "1.1.13",
+    "@justeattakeaway/pie-radio-group": "1.0.24",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "esbuild": "0.24.0",
+    "rimraf": "6.0.1",
+    "typescript": "5.6.3"
+  }
+}

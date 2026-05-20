@@ -8,6 +8,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./generate": "./src/generate.ts",
+    "./load": "./src/load.ts",
     "./types": "./src/types.ts"
   },
   "scripts": {
