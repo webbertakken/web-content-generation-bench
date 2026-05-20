@@ -2,9 +2,11 @@
 
 Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally Vite) on a realistic menu + cart workload, using a shared dataset and the Pie design system.
 
+**Scale: 1,000 restaurants** (originally 10k, reduced because V8 OOMs serialising ~4.7M items into one JSON file). 1k still gives a meaningful build-time difference across frameworks while keeping memory headroom for the generator and each framework's build step.
+
 ## Decisions locked in
 
-- **Q1**: 10k restaurants, each on its own "domain" (simulated via one menu page per restaurant). Dataset = 10k restaurants × (5 categories × 5-200 items).
+- **Q1**: 1k restaurants, each on its own "domain" (simulated via one menu page per restaurant). Dataset = 1k restaurants × (5 categories × 5-200 items). Reduced from 10k to fit in V8 memory.
 - **Q2**: Eleventy islands via `@11ty/is-land`. Only the cart + modal hydrate.
 - **Q3**: Cart is in-memory only, lost on reload.
 - **Q4**: Pie components: `pie-modal` + `pie-button` + `pie-card` + form input for sauce selection.
@@ -20,7 +22,7 @@ Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally 
 - Benchmark harness under `bench/`, produces a Markdown report + JSON.
 - Cold builds only (no incremental). Warm caches cleared between runs.
 - 3 runs per framework, take the median.
-- Single-page build time: build with just 1 restaurant in the dataset. Full build: 10k.
+- Single-page build time: build with just 1 restaurant in the dataset. Full build: 1k.
 - All data local, no network calls during build.
 - WCAG 2.2 AA, focus management on the modal, prefers-color-scheme respected.
 - Yarn linker: `node-modules` (not PnP) to avoid framework resolution quirks.
@@ -31,13 +33,12 @@ Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally 
 
 ### 0. Repo bootstrapping
 
-- [ ] Initialise `package.json` with pnpm workspaces
-- [ ] Pin Node + pnpm via `mise.toml`
-- [ ] Add `.gitignore` (node_modules, dist, .next, .svelte-kit, _site, .astro, benchmark output)
-- [ ] Add `.editorconfig`, `prettier`, shared `tsconfig.base.json`
-- [ ] Add root `README.md` with how-to-run
-- [ ] Add `AMBIGUITIES.md` and `DECISIONS.md` (gitignored)
-- [ ] Initial commit on `main`
+- [x] Initialise `package.json` with yarn berry workspaces
+- [x] Pin Node via `mise.toml`, pin yarn via `packageManager`
+- [x] Add `.gitignore` (node_modules, dist, .next, .svelte-kit, \_site, .astro, benchmark output)
+- [x] Add `.editorconfig`, `.gitattributes`, `prettier`, shared `tsconfig.base.json`
+- [x] Add root `README.md` with how-to-run
+- [x] Initial commit on `wf-1857-init-bench` branch
 
 ### 1. Shared data package (`packages/data/`)
 
