@@ -77,32 +77,37 @@ Compare static site generators (Eleventy, Astro, Next.js, SvelteKit, optionally 
 
 ### 5. App: Eleventy + Preact (`apps/eleventy-preact/`)
 
-- [ ] Copy `apps/eleventy-react`, swap React for Preact + `preact/compat` alias
-- [ ] Verify identical visual output (diff screenshots via Playwright)
-- [ ] Commit
+- [x] Copied `apps/eleventy-react`, swapped React for Preact + `preact/compat` alias (via esbuild)
+- [x] Server render via `preact-render-to-string`; client mounts via `preact.render`
+- [x] 1000 pages in 10.5s (9.6 ms/page), client bundle 187KB (vs 358KB React)
+- [x] Commit
 
 ### 6. App: Astro + React (`apps/astro-react/`)
 
-- [ ] Init Astro with `@astrojs/react` integration
-- [ ] `getStaticPaths` from `data.json` to emit one page per restaurant
-- [ ] Build the menu template using `.astro` files for static parts, React island for the cart, Pie modal as web component
-- [ ] Choose hydration directive (`client:load` for cart, `client:visible` for modal trigger)
-- [ ] Commit
+- [x] Init Astro 6.3.5 with `@astrojs/react` 5.0.5
+- [x] `getStaticPaths` from `data.json` to emit one page per restaurant
+- [x] `.astro` files for static parts, React `CartIsland.tsx` with `client:idle` for hydration
+- [x] 1000 pages in 27.2s (25.4 ms/page), HTML 392KB/page (serialised props embedded)
+- [x] Commit
 
 ### 7. App: Next.js (`apps/nextjs/`)
 
-- [ ] Init Next.js with App Router and `output: 'export'`
-- [ ] `generateStaticParams` from `data.json` for one route per restaurant
-- [ ] Server components for static parts, client component for cart
-- [ ] Pie modal as web component inside a client component
-- [ ] Commit
+- [x] Init Next.js 16.2.6 with App Router and `output: 'export'`
+- [x] `generateStaticParams` from `data.json` for one route per restaurant
+- [x] Server components for static parts, client component for cart (Pie modal dynamically imported)
+- [x] Naive: 612s for 1000 pages (Next reloads JSON per page across 4 workers)
+- [x] With per-worker module cache: 50s (12× speedup) - reported as the headline number
+- [x] HTML 521KB/page (RSC payload + serialised props), JS bundle ~360KB initial
+- [x] Commit
 
 ### 8. App: SvelteKit (`apps/sveltekit/`)
 
-- [ ] Init SvelteKit with `adapter-static` and prerender all
-- [ ] `entries()` from `data.json` for one route per restaurant
-- [ ] Svelte stores for cart, Pie modal as web component
-- [ ] Commit
+- [x] Init SvelteKit 2.60.1 with `adapter-static` and `prerender = true`
+- [x] `entries()` from `data.json` for one route per restaurant
+- [x] Svelte 5 runes (`$state`, `$derived`, `$effect`) for the cart island
+- [x] Pie modal lazy-loaded in `onMount`
+- [x] 1000 pages in 22.9s (22.9 ms/page), HTML 139KB/page (smallest), `_app/` 280KB
+- [x] Commit
 
 ### 9. App: Vite SSG (`apps/vite-ssg/`) (only if Q6 = B or D)
 

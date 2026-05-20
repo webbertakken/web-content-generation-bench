@@ -1,0 +1,16 @@
+{
+  "name": "@bench/harness",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bench": "tsx run.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"(harness is exercised by run.ts)\" && exit 0"
+  },
+  "devDependencies": {
+    "@types/node": "22.7.5",
+    "tsx": "4.19.1",
+    "typescript": "5.6.3"
+  }
+}
