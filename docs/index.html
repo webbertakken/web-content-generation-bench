@@ -1,1049 +1,750 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Web content generation benchmark - overview</title>
-    <style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web content generation benchmark - overview</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --fg: #161616;
+      --muted: #555;
+      --border: #d6d6d6;
+      --card: #fafafa;
+      --accent: #ff6f00;
+      --accent-dim: #ffbb6633;
+      --best: #1f7a3f;
+      --best-bg: #d8f5e2;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
       :root {
-        color-scheme: light dark;
-        --bg: #ffffff;
-        --fg: #161616;
-        --muted: #555;
-        --border: #d6d6d6;
-        --card: #fafafa;
-        --accent: #ff6f00;
-        --accent-dim: #ffbb6633;
-        --best: #1f7a3f;
-        --best-bg: #d8f5e2;
-        --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        font-family:
-          system-ui,
-          -apple-system,
-          'Segoe UI',
-          Roboto,
-          sans-serif;
+        --bg: #0c0c0c;
+        --fg: #f0f0f0;
+        --muted: #aaa;
+        --border: #2a2a2a;
+        --card: #161616;
+        --best: #6be0a0;
+        --best-bg: #143b21;
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
       }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg: #0c0c0c;
-          --fg: #f0f0f0;
-          --muted: #aaa;
-          --border: #2a2a2a;
-          --card: #161616;
-          --best: #6be0a0;
-          --best-bg: #143b21;
-          --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-        }
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--fg);
-        line-height: 1.55;
-        font-size: 16px;
-      }
-      .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem 4rem;
-      }
-      h1 {
-        font-size: 2rem;
-        margin: 0 0 0.5rem;
-      }
-      .subtitle {
-        color: var(--muted);
-        margin: 0 0 2rem;
-        font-size: 1.05rem;
-      }
-      h2 {
-        margin: 2.5rem 0 1rem;
-        font-size: 1.5rem;
-        border-bottom: 2px solid var(--accent);
-        padding-bottom: 0.25rem;
-      }
-      h3 {
-        margin: 0 0 0.75rem;
-        font-size: 1.15rem;
-      }
-      .summary {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1rem;
-        margin-bottom: 1rem;
-      }
-      .summary-card {
-        padding: 1rem 1.25rem;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        box-shadow: var(--shadow);
-      }
-      .summary-card h3 {
-        font-size: 0.875rem;
-        color: var(--muted);
-        font-weight: 500;
-        margin: 0 0 0.25rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      .summary-card p {
-        margin: 0;
-        font-size: 1.05rem;
-        font-weight: 600;
-      }
-      .summary-card .winner {
-        color: var(--accent);
-      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+    .subtitle { color: var(--muted); margin: 0 0 2rem; font-size: 1.05rem; }
+    h2 { margin: 2.5rem 0 1rem; font-size: 1.5rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.25rem; }
+    h3 { margin: 0 0 0.75rem; font-size: 1.15rem; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .summary-card {
+      padding: 1rem 1.25rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .summary-card h3 { font-size: 0.875rem; color: var(--muted); font-weight: 500; margin: 0 0 0.25rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .summary-card p { margin: 0; font-size: 1.05rem; font-weight: 600; }
+    .summary-card .winner { color: var(--accent); }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        font-variant-numeric: tabular-nums;
-        font-size: 0.9rem;
-      }
-      th,
-      td {
-        padding: 0.5rem 0.75rem;
-        text-align: right;
-        border-bottom: 1px solid var(--border);
-      }
-      th[scope='row'] {
-        text-align: left;
-        font-weight: 600;
-      }
-      thead th {
-        font-weight: 600;
-        background: var(--card);
-        position: sticky;
-        top: 0;
-      }
-      .table-wrap {
-        overflow-x: auto;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-      }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 0.5rem 0.75rem;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+    th[scope="row"] { text-align: left; font-weight: 600; }
+    thead th { font-weight: 600; background: var(--card); position: sticky; top: 0; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
 
-      .chart {
-        margin: 1.5rem 0;
-      }
-      .chart .unit {
-        color: var(--muted);
-        font-weight: 400;
-        font-size: 0.9rem;
-      }
-      .bars {
-        display: grid;
-        gap: 0.5rem;
-      }
-      .bar-row {
-        display: grid;
-        grid-template-columns: 200px 1fr 160px;
-        gap: 0.75rem;
-        align-items: center;
-      }
-      .bar-label {
-        font-weight: 500;
-        font-size: 0.95rem;
-      }
-      .bar-track {
-        height: 1.2rem;
-        background: var(--accent-dim);
-        border-radius: 3px;
-        overflow: hidden;
-      }
-      .bar-fill {
-        height: 100%;
-        background: var(--accent);
-        transition: width 200ms ease;
-      }
-      .bar-value {
-        font-variant-numeric: tabular-nums;
-        font-size: 0.9rem;
-        color: var(--muted);
-      }
-      .bar-row--best .bar-fill {
-        background: var(--best);
-      }
-      .bar-row--best .bar-value {
-        color: var(--best);
-        font-weight: 600;
-      }
-      .best-badge {
-        background: var(--best-bg);
-        color: var(--best);
-        padding: 0 0.4rem;
-        border-radius: 3px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
+    .chart { margin: 1.5rem 0; }
+    .chart .unit { color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+    .bars { display: grid; gap: 0.5rem; }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 160px;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .bar-label { font-weight: 500; font-size: 0.95rem; }
+    .bar-track { height: 1.2rem; background: var(--accent-dim); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--accent); transition: width 200ms ease; }
+    .bar-value { font-variant-numeric: tabular-nums; font-size: 0.9rem; color: var(--muted); }
+    .bar-row--best .bar-fill { background: var(--best); }
+    .bar-row--best .bar-value { color: var(--best); font-weight: 600; }
+    .best-badge {
+      background: var(--best-bg);
+      color: var(--best);
+      padding: 0 0.4rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
-      .charts-grid {
-        display: grid;
-        gap: 2rem;
-        margin-top: 1rem;
-      }
-      @media (max-width: 700px) {
-        .bar-row {
-          grid-template-columns: 1fr;
-        }
-        .bar-label {
-          font-weight: 600;
-        }
-      }
+    .charts-grid { display: grid; gap: 2rem; margin-top: 1rem; }
+    @media (max-width: 700px) {
+      .bar-row { grid-template-columns: 1fr; }
+      .bar-label { font-weight: 600; }
+    }
 
-      .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-      }
-      .card {
-        padding: 1rem 1.25rem;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        box-shadow: var(--shadow);
-      }
-      .card h3 {
-        margin: 0 0 0.75rem;
-        color: var(--accent);
-      }
-      .kv {
-        margin: 0;
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        gap: 0.25rem 1rem;
-        font-size: 0.9rem;
-      }
-      .kv dt {
-        color: var(--muted);
-      }
-      .kv dd {
-        margin: 0;
-        text-align: right;
-        font-variant-numeric: tabular-nums;
-        font-weight: 500;
-      }
-      details {
-        margin-top: 0.75rem;
-      }
-      summary {
-        cursor: pointer;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-      details ul {
-        margin: 0.5rem 0 0;
-        padding-left: 1rem;
-        font-size: 0.85rem;
-      }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .card {
+      padding: 1rem 1.25rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin: 0 0 0.75rem; color: var(--accent); }
+    .kv { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; font-size: 0.9rem; }
+    .kv dt { color: var(--muted); }
+    .kv dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+    details { margin-top: 0.75rem; }
+    summary { cursor: pointer; color: var(--muted); font-size: 0.9rem; }
+    details ul { margin: 0.5rem 0 0; padding-left: 1rem; font-size: 0.85rem; }
 
-      .meta {
-        margin-top: 3rem;
-        padding-top: 1rem;
-        border-top: 1px solid var(--border);
-        color: var(--muted);
-        font-size: 0.85rem;
-      }
-      code {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.85em;
-        background: var(--accent-dim);
-        padding: 0.1em 0.3em;
-        border-radius: 3px;
-      }
-      a {
-        color: var(--accent);
-      }
+    .meta {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.85em; background: var(--accent-dim); padding: 0.1em 0.3em; border-radius: 3px; }
+    a { color: var(--accent); }
 
-      /* skip link */
-      .skip-link {
-        position: absolute;
-        top: -40px;
-        left: 0;
-        background: var(--accent);
-        color: #fff;
-        padding: 0.5rem 1rem;
-        z-index: 100;
-        text-decoration: none;
-      }
-      .skip-link:focus {
-        top: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <a class="skip-link" href="#results">Skip to results</a>
-    <div class="container">
-      <header>
-        <h1>Web content generation benchmark</h1>
-        <p class="subtitle">
-          Building <strong>1000 restaurant menu pages</strong> across five static site generators.
-          Median of <strong>3 cold builds</strong> per framework, identical input dataset, identical
-          Pie design system.
-        </p>
-      </header>
+    /* skip link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#results">Skip to results</a>
+  <div class="container">
+    <header>
+      <h1>Web content generation benchmark</h1>
+      <p class="subtitle">
+        Building <strong>1000 restaurant menu pages</strong> across five static site generators.
+        Median of <strong>3 cold builds</strong> per framework, identical input dataset, identical Pie design system.
+      </p>
+    </header>
 
-      <section class="summary" aria-label="Headline winners">
-        <div class="summary-card">
-          <h3>Fastest build</h3>
-          <p><span class="winner">Eleventy + Preact</span></p>
-          <p><small>11.85 s (5.77× faster than slowest)</small></p>
-        </div>
-        <div class="summary-card">
-          <h3>Smallest initial JS</h3>
-          <p><span class="winner">SvelteKit</span></p>
-          <p><small>84.2 KB</small></p>
-        </div>
-        <div class="summary-card">
-          <h3>Fewest source lines</h3>
-          <p><span class="winner">SvelteKit</span></p>
-          <p><small>447 LOC</small></p>
-        </div>
-      </section>
-
-      <h2 id="results">Results table</h2>
-      <div class="table-wrap">
-        <table>
-          <caption class="sr-only">
-            Benchmark metrics per framework
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Framework</th>
-              <th scope="col">Cold build</th>
-              <th scope="col">Per page</th>
-              <th scope="col">Initial JS</th>
-              <th scope="col">Initial CSS</th>
-              <th scope="col">Total JS</th>
-              <th scope="col">HTML/page</th>
-              <th scope="col">Output total</th>
-              <th scope="col">Source LOC</th>
-              <th scope="col">Files</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Eleventy + React</th>
-              <td>34.56 s</td>
-              <td>35 ms</td>
-              <td>378.8 KB</td>
-              <td>3.5 KB</td>
-              <td>378.8 KB</td>
-              <td>270.7 KB</td>
-              <td>343.81 MB</td>
-              <td>586</td>
-              <td>13</td>
-            </tr>
-            <tr>
-              <th scope="row">Eleventy + Preact</th>
-              <td>11.85 s</td>
-              <td>12 ms</td>
-              <td>203.4 KB</td>
-              <td>3.5 KB</td>
-              <td>203.4 KB</td>
-              <td>270.6 KB</td>
-              <td>343.56 MB</td>
-              <td>595</td>
-              <td>13</td>
-            </tr>
-            <tr>
-              <th scope="row">Astro + React</th>
-              <td>31.22 s</td>
-              <td>31 ms</td>
-              <td>344.8 KB</td>
-              <td>3.5 KB</td>
-              <td>364.0 KB</td>
-              <td>400.4 KB</td>
-              <td>506.78 MB</td>
-              <td>479</td>
-              <td>9</td>
-            </tr>
-            <tr>
-              <th scope="row">Next.js</th>
-              <td>68.32 s</td>
-              <td>68 ms</td>
-              <td>631.7 KB</td>
-              <td>2.8 KB</td>
-              <td>918.3 KB</td>
-              <td>532.6 KB</td>
-              <td>1974.28 MB</td>
-              <td>505</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <th scope="row">SvelteKit</th>
-              <td>35.23 s</td>
-              <td>35 ms</td>
-              <td>84.2 KB</td>
-              <td>3.5 KB</td>
-              <td>249.6 KB</td>
-              <td>141.5 KB</td>
-              <td>178.34 MB</td>
-              <td>447</td>
-              <td>10</td>
-            </tr>
-          </tbody>
-        </table>
+    <section class="summary" aria-label="Headline winners">
+      <div class="summary-card">
+        <h3>Fastest build</h3>
+        <p><span class="winner">Eleventy + Preact</span></p>
+        <p><small>14.56 s (4.11× faster than slowest)</small></p>
       </div>
-
-      <h2>Charts</h2>
-      <div class="charts-grid">
-        <section class="chart" aria-labelledby="chart-Cold-build-time-full-1000-pages-">
-          <h3 id="chart-Cold-build-time-full-1000-pages-">
-            Cold build time (full 1000 pages)
-            <span class="unit">(milliseconds, lower is better)</span>
-          </h3>
-          <div class="bars">
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68323.62109999999"
-                aria-valuenow="34559.5209"
-                aria-label="Eleventy + React: 34.56 s"
-              >
-                <div class="bar-fill" style="width: 50.58%"></div>
-              </div>
-              <div class="bar-value">34.56 s</div>
-            </div>
-            <div class="bar-row bar-row--best">
-              <div class="bar-label">Eleventy + Preact</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68323.62109999999"
-                aria-valuenow="11846.406400000007"
-                aria-label="Eleventy + Preact: 11.85 s"
-              >
-                <div class="bar-fill" style="width: 17.34%"></div>
-              </div>
-              <div class="bar-value">11.85 s <span class="best-badge">best</span></div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Astro + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68323.62109999999"
-                aria-valuenow="31223.68160000001"
-                aria-label="Astro + React: 31.22 s"
-              >
-                <div class="bar-fill" style="width: 45.7%"></div>
-              </div>
-              <div class="bar-value">31.22 s</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Next.js</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68323.62109999999"
-                aria-valuenow="68323.62109999999"
-                aria-label="Next.js: 68.32 s"
-              >
-                <div class="bar-fill" style="width: 100%"></div>
-              </div>
-              <div class="bar-value">68.32 s</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">SvelteKit</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68323.62109999999"
-                aria-valuenow="35227.03470000002"
-                aria-label="SvelteKit: 35.23 s"
-              >
-                <div class="bar-fill" style="width: 51.56%"></div>
-              </div>
-              <div class="bar-value">35.23 s</div>
-            </div>
-          </div>
-        </section>
-        <section class="chart" aria-labelledby="chart-Per-page-build-time">
-          <h3 id="chart-Per-page-build-time">
-            Per-page build time <span class="unit">(milliseconds, lower is better)</span>
-          </h3>
-          <div class="bars">
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68.32362109999998"
-                aria-valuenow="34.5595209"
-                aria-label="Eleventy + React: 35 ms"
-              >
-                <div class="bar-fill" style="width: 50.58%"></div>
-              </div>
-              <div class="bar-value">35 ms</div>
-            </div>
-            <div class="bar-row bar-row--best">
-              <div class="bar-label">Eleventy + Preact</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68.32362109999998"
-                aria-valuenow="11.846406400000006"
-                aria-label="Eleventy + Preact: 12 ms"
-              >
-                <div class="bar-fill" style="width: 17.34%"></div>
-              </div>
-              <div class="bar-value">12 ms <span class="best-badge">best</span></div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Astro + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68.32362109999998"
-                aria-valuenow="31.22368160000001"
-                aria-label="Astro + React: 31 ms"
-              >
-                <div class="bar-fill" style="width: 45.7%"></div>
-              </div>
-              <div class="bar-value">31 ms</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Next.js</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68.32362109999998"
-                aria-valuenow="68.32362109999998"
-                aria-label="Next.js: 68 ms"
-              >
-                <div class="bar-fill" style="width: 100%"></div>
-              </div>
-              <div class="bar-value">68 ms</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">SvelteKit</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="68.32362109999998"
-                aria-valuenow="35.22703470000002"
-                aria-label="SvelteKit: 35 ms"
-              >
-                <div class="bar-fill" style="width: 51.56%"></div>
-              </div>
-              <div class="bar-value">35 ms</div>
-            </div>
-          </div>
-        </section>
-        <section class="chart" aria-labelledby="chart-Initial-JS-shipped-to-client">
-          <h3 id="chart-Initial-JS-shipped-to-client">
-            Initial JS shipped to client <span class="unit">(bytes, lower is better)</span>
-          </h3>
-          <div class="bars">
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="631660"
-                aria-valuenow="378838"
-                aria-label="Eleventy + React: 378.8 KB"
-              >
-                <div class="bar-fill" style="width: 59.97%"></div>
-              </div>
-              <div class="bar-value">378.8 KB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + Preact</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="631660"
-                aria-valuenow="203403"
-                aria-label="Eleventy + Preact: 203.4 KB"
-              >
-                <div class="bar-fill" style="width: 32.2%"></div>
-              </div>
-              <div class="bar-value">203.4 KB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Astro + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="631660"
-                aria-valuenow="344787"
-                aria-label="Astro + React: 344.8 KB"
-              >
-                <div class="bar-fill" style="width: 54.58%"></div>
-              </div>
-              <div class="bar-value">344.8 KB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Next.js</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="631660"
-                aria-valuenow="631660"
-                aria-label="Next.js: 631.7 KB"
-              >
-                <div class="bar-fill" style="width: 100%"></div>
-              </div>
-              <div class="bar-value">631.7 KB</div>
-            </div>
-            <div class="bar-row bar-row--best">
-              <div class="bar-label">SvelteKit</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="631660"
-                aria-valuenow="84157"
-                aria-label="SvelteKit: 84.2 KB"
-              >
-                <div class="bar-fill" style="width: 13.32%"></div>
-              </div>
-              <div class="bar-value">84.2 KB <span class="best-badge">best</span></div>
-            </div>
-          </div>
-        </section>
-        <section class="chart" aria-labelledby="chart-HTML-size-per-page-sample-">
-          <h3 id="chart-HTML-size-per-page-sample-">
-            HTML size per page (sample) <span class="unit">(bytes, lower is better)</span>
-          </h3>
-          <div class="bars">
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="532642"
-                aria-valuenow="270697"
-                aria-label="Eleventy + React: 270.7 KB"
-              >
-                <div class="bar-fill" style="width: 50.82%"></div>
-              </div>
-              <div class="bar-value">270.7 KB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + Preact</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="532642"
-                aria-valuenow="270627"
-                aria-label="Eleventy + Preact: 270.6 KB"
-              >
-                <div class="bar-fill" style="width: 50.81%"></div>
-              </div>
-              <div class="bar-value">270.6 KB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Astro + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="532642"
-                aria-valuenow="400411"
-                aria-label="Astro + React: 400.4 KB"
-              >
-                <div class="bar-fill" style="width: 75.17%"></div>
-              </div>
-              <div class="bar-value">400.4 KB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Next.js</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="532642"
-                aria-valuenow="532642"
-                aria-label="Next.js: 532.6 KB"
-              >
-                <div class="bar-fill" style="width: 100%"></div>
-              </div>
-              <div class="bar-value">532.6 KB</div>
-            </div>
-            <div class="bar-row bar-row--best">
-              <div class="bar-label">SvelteKit</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="532642"
-                aria-valuenow="141491"
-                aria-label="SvelteKit: 141.5 KB"
-              >
-                <div class="bar-fill" style="width: 26.56%"></div>
-              </div>
-              <div class="bar-value">141.5 KB <span class="best-badge">best</span></div>
-            </div>
-          </div>
-        </section>
-        <section class="chart" aria-labelledby="chart-Total-output-on-disk">
-          <h3 id="chart-Total-output-on-disk">
-            Total output on disk <span class="unit">(bytes, lower is better)</span>
-          </h3>
-          <div class="bars">
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="1974284258"
-                aria-valuenow="343812258"
-                aria-label="Eleventy + React: 343.81 MB"
-              >
-                <div class="bar-fill" style="width: 17.41%"></div>
-              </div>
-              <div class="bar-value">343.81 MB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + Preact</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="1974284258"
-                aria-valuenow="343564643"
-                aria-label="Eleventy + Preact: 343.56 MB"
-              >
-                <div class="bar-fill" style="width: 17.4%"></div>
-              </div>
-              <div class="bar-value">343.56 MB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Astro + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="1974284258"
-                aria-valuenow="506779406"
-                aria-label="Astro + React: 506.78 MB"
-              >
-                <div class="bar-fill" style="width: 25.67%"></div>
-              </div>
-              <div class="bar-value">506.78 MB</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Next.js</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="1974284258"
-                aria-valuenow="1974284258"
-                aria-label="Next.js: 1974.28 MB"
-              >
-                <div class="bar-fill" style="width: 100%"></div>
-              </div>
-              <div class="bar-value">1974.28 MB</div>
-            </div>
-            <div class="bar-row bar-row--best">
-              <div class="bar-label">SvelteKit</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="1974284258"
-                aria-valuenow="178336281"
-                aria-label="SvelteKit: 178.34 MB"
-              >
-                <div class="bar-fill" style="width: 9.03%"></div>
-              </div>
-              <div class="bar-value">178.34 MB <span class="best-badge">best</span></div>
-            </div>
-          </div>
-        </section>
-        <section class="chart" aria-labelledby="chart-Source-lines-of-code-app-only-">
-          <h3 id="chart-Source-lines-of-code-app-only-">
-            Source lines of code (app-only) <span class="unit">(lines, lower is better)</span>
-          </h3>
-          <div class="bars">
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="595"
-                aria-valuenow="586"
-                aria-label="Eleventy + React: 586"
-              >
-                <div class="bar-fill" style="width: 98.49%"></div>
-              </div>
-              <div class="bar-value">586</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Eleventy + Preact</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="595"
-                aria-valuenow="595"
-                aria-label="Eleventy + Preact: 595"
-              >
-                <div class="bar-fill" style="width: 100%"></div>
-              </div>
-              <div class="bar-value">595</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Astro + React</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="595"
-                aria-valuenow="479"
-                aria-label="Astro + React: 479"
-              >
-                <div class="bar-fill" style="width: 80.5%"></div>
-              </div>
-              <div class="bar-value">479</div>
-            </div>
-            <div class="bar-row">
-              <div class="bar-label">Next.js</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="595"
-                aria-valuenow="505"
-                aria-label="Next.js: 505"
-              >
-                <div class="bar-fill" style="width: 84.87%"></div>
-              </div>
-              <div class="bar-value">505</div>
-            </div>
-            <div class="bar-row bar-row--best">
-              <div class="bar-label">SvelteKit</div>
-              <div
-                class="bar-track"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="595"
-                aria-valuenow="447"
-                aria-label="SvelteKit: 447"
-              >
-                <div class="bar-fill" style="width: 75.13%"></div>
-              </div>
-              <div class="bar-value">447 <span class="best-badge">best</span></div>
-            </div>
-          </div>
-        </section>
+      <div class="summary-card">
+        <h3>Smallest initial JS</h3>
+        <p><span class="winner">SvelteKit</span></p>
+        <p><small>87.2 KB</small></p>
       </div>
-
-      <h2>Per-framework detail</h2>
-      <div class="cards">
-        <article class="card" id="app-eleventy-react">
-          <h3>Eleventy + React</h3>
-          <dl class="kv">
-            <dt>Cold build (median of 3)</dt>
-            <dd>34.56 s</dd>
-            <dt>Best / worst</dt>
-            <dd>32.30 s / 41.04 s</dd>
-            <dt>Per page</dt>
-            <dd>35 ms</dd>
-            <dt>Initial JS</dt>
-            <dd>378.8 KB</dd>
-            <dt>Initial CSS</dt>
-            <dd>3.5 KB</dd>
-            <dt>Total JS (incl. lazy)</dt>
-            <dd>378.8 KB</dd>
-            <dt>HTML / page</dt>
-            <dd>270.7 KB</dd>
-            <dt>Output total on disk</dt>
-            <dd>343.81 MB</dd>
-            <dt>Source files</dt>
-            <dd>13</dd>
-            <dt>Source LOC</dt>
-            <dd>586</dd>
-          </dl>
-          <details>
-            <summary>LOC by extension</summary>
-            <ul>
-              <li><code>.tsx</code>: 302 LOC across 8 files</li>
-              <li><code>.css</code>: 162 LOC across 1 files</li>
-              <li><code>.mjs</code>: 92 LOC across 2 files</li>
-              <li><code>.js</code>: 19 LOC across 1 files</li>
-              <li><code>.ts</code>: 11 LOC across 1 files</li>
-            </ul>
-          </details>
-        </article>
-        <article class="card" id="app-eleventy-preact">
-          <h3>Eleventy + Preact</h3>
-          <dl class="kv">
-            <dt>Cold build (median of 3)</dt>
-            <dd>11.85 s</dd>
-            <dt>Best / worst</dt>
-            <dd>11.81 s / 14.20 s</dd>
-            <dt>Per page</dt>
-            <dd>12 ms</dd>
-            <dt>Initial JS</dt>
-            <dd>203.4 KB</dd>
-            <dt>Initial CSS</dt>
-            <dd>3.5 KB</dd>
-            <dt>Total JS (incl. lazy)</dt>
-            <dd>203.4 KB</dd>
-            <dt>HTML / page</dt>
-            <dd>270.6 KB</dd>
-            <dt>Output total on disk</dt>
-            <dd>343.56 MB</dd>
-            <dt>Source files</dt>
-            <dd>13</dd>
-            <dt>Source LOC</dt>
-            <dd>595</dd>
-          </dl>
-          <details>
-            <summary>LOC by extension</summary>
-            <ul>
-              <li><code>.tsx</code>: 302 LOC across 8 files</li>
-              <li><code>.css</code>: 162 LOC across 1 files</li>
-              <li><code>.mjs</code>: 101 LOC across 2 files</li>
-              <li><code>.js</code>: 19 LOC across 1 files</li>
-              <li><code>.ts</code>: 11 LOC across 1 files</li>
-            </ul>
-          </details>
-        </article>
-        <article class="card" id="app-astro-react">
-          <h3>Astro + React</h3>
-          <dl class="kv">
-            <dt>Cold build (median of 3)</dt>
-            <dd>31.22 s</dd>
-            <dt>Best / worst</dt>
-            <dd>27.97 s / 50.30 s</dd>
-            <dt>Per page</dt>
-            <dd>31 ms</dd>
-            <dt>Initial JS</dt>
-            <dd>344.8 KB</dd>
-            <dt>Initial CSS</dt>
-            <dd>3.5 KB</dd>
-            <dt>Total JS (incl. lazy)</dt>
-            <dd>364.0 KB</dd>
-            <dt>HTML / page</dt>
-            <dd>400.4 KB</dd>
-            <dt>Output total on disk</dt>
-            <dd>506.78 MB</dd>
-            <dt>Source files</dt>
-            <dd>9</dd>
-            <dt>Source LOC</dt>
-            <dd>479</dd>
-          </dl>
-          <details>
-            <summary>LOC by extension</summary>
-            <ul>
-              <li><code>.tsx</code>: 190 LOC across 2 files</li>
-              <li><code>.css</code>: 162 LOC across 1 files</li>
-              <li><code>.astro</code>: 81 LOC across 3 files</li>
-              <li><code>.mjs</code>: 35 LOC across 2 files</li>
-              <li><code>.ts</code>: 11 LOC across 1 files</li>
-            </ul>
-          </details>
-        </article>
-        <article class="card" id="app-nextjs">
-          <h3>Next.js</h3>
-          <dl class="kv">
-            <dt>Cold build (median of 3)</dt>
-            <dd>68.32 s</dd>
-            <dt>Best / worst</dt>
-            <dd>63.48 s / 96.00 s</dd>
-            <dt>Per page</dt>
-            <dd>68 ms</dd>
-            <dt>Initial JS</dt>
-            <dd>631.7 KB</dd>
-            <dt>Initial CSS</dt>
-            <dd>2.8 KB</dd>
-            <dt>Total JS (incl. lazy)</dt>
-            <dd>918.3 KB</dd>
-            <dt>HTML / page</dt>
-            <dd>532.6 KB</dd>
-            <dt>Output total on disk</dt>
-            <dd>1974.28 MB</dd>
-            <dt>Source files</dt>
-            <dd>10</dd>
-            <dt>Source LOC</dt>
-            <dd>505</dd>
-          </dl>
-          <details>
-            <summary>LOC by extension</summary>
-            <ul>
-              <li><code>.tsx</code>: 274 LOC across 4 files</li>
-              <li><code>.css</code>: 162 LOC across 1 files</li>
-              <li><code>.mjs</code>: 47 LOC across 2 files</li>
-              <li><code>.ts</code>: 22 LOC across 3 files</li>
-            </ul>
-          </details>
-        </article>
-        <article class="card" id="app-sveltekit">
-          <h3>SvelteKit</h3>
-          <dl class="kv">
-            <dt>Cold build (median of 3)</dt>
-            <dd>35.23 s</dd>
-            <dt>Best / worst</dt>
-            <dd>24.61 s / 40.87 s</dd>
-            <dt>Per page</dt>
-            <dd>35 ms</dd>
-            <dt>Initial JS</dt>
-            <dd>84.2 KB</dd>
-            <dt>Initial CSS</dt>
-            <dd>3.5 KB</dd>
-            <dt>Total JS (incl. lazy)</dt>
-            <dd>249.6 KB</dd>
-            <dt>HTML / page</dt>
-            <dd>141.5 KB</dd>
-            <dt>Output total on disk</dt>
-            <dd>178.34 MB</dd>
-            <dt>Source files</dt>
-            <dd>10</dd>
-            <dt>Source LOC</dt>
-            <dd>447</dd>
-          </dl>
-          <details>
-            <summary>LOC by extension</summary>
-            <ul>
-              <li><code>.svelte</code>: 211 LOC across 4 files</li>
-              <li><code>.css</code>: 162 LOC across 1 files</li>
-              <li><code>.mjs</code>: 29 LOC across 1 files</li>
-              <li><code>.ts</code>: 27 LOC across 3 files</li>
-              <li><code>.js</code>: 18 LOC across 1 files</li>
-            </ul>
-          </details>
-        </article>
+      <div class="summary-card">
+        <h3>Fewest source lines</h3>
+        <p><span class="winner">SvelteKit</span></p>
+        <p><small>484 LOC</small></p>
       </div>
+    </section>
 
-      <footer class="meta">
-        Generated 2026-05-20T16:48:17.516Z from <code>bench/run.ts</code>. Source:
-        <a href="https://github.com/">repo</a>. See
-        <a href="report.md"><code>report.md</code></a> for a plain-text version.
-      </footer>
+    <h2 id="results">Results table</h2>
+    <div class="table-wrap">
+      <table>
+        <caption class="sr-only">Benchmark metrics per framework</caption>
+        <thead>
+          <tr>
+            <th scope="col">Framework</th>
+            <th scope="col">Cold build</th>
+            <th scope="col">Per page</th>
+            <th scope="col">Initial JS</th>
+            <th scope="col">Initial CSS</th>
+            <th scope="col">Total JS</th>
+            <th scope="col">HTML/page</th>
+            <th scope="col">Output total</th>
+            <th scope="col">Source LOC</th>
+            <th scope="col">Files</th>
+          </tr>
+        </thead>
+        <tbody>
+      <tr>
+        <th scope="row">Eleventy + React</th>
+        <td>24.25 s</td>
+        <td>24 ms</td>
+        <td>378.8 KB</td>
+        <td>4.9 KB</td>
+        <td>378.8 KB</td>
+        <td>271.0 KB</td>
+        <td>344.32 MB</td>
+        <td>625</td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <th scope="row">Eleventy + Preact</th>
+        <td>14.56 s</td>
+        <td>15 ms</td>
+        <td>203.4 KB</td>
+        <td>4.9 KB</td>
+        <td>203.4 KB</td>
+        <td>270.9 KB</td>
+        <td>344.06 MB</td>
+        <td>634</td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <th scope="row">Astro + React</th>
+        <td>26.66 s</td>
+        <td>27 ms</td>
+        <td>344.8 KB</td>
+        <td>4.9 KB</td>
+        <td>364.0 KB</td>
+        <td>400.7 KB</td>
+        <td>507.27 MB</td>
+        <td>519</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <th scope="row">Astro + Preact</th>
+        <td>24.00 s</td>
+        <td>24 ms</td>
+        <td>164.2 KB</td>
+        <td>4.9 KB</td>
+        <td>198.3 KB</td>
+        <td>400.7 KB</td>
+        <td>507.12 MB</td>
+        <td>517</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <th scope="row">Next.js</th>
+        <td>59.88 s</td>
+        <td>60 ms</td>
+        <td>631.7 KB</td>
+        <td>151.1 KB</td>
+        <td>918.3 KB</td>
+        <td>534.3 KB</td>
+        <td>1978.93 MB</td>
+        <td>549</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <th scope="row">SvelteKit</th>
+        <td>42.60 s</td>
+        <td>43 ms</td>
+        <td>87.2 KB</td>
+        <td>4.9 KB</td>
+        <td>252.7 KB</td>
+        <td>261.6 KB</td>
+        <td>470.18 MB</td>
+        <td>484</td>
+        <td>10</td>
+      </tr>
+        </tbody>
+      </table>
     </div>
-  </body>
+
+    <h2>Charts</h2>
+    <div class="charts-grid">
+      <section class="chart" aria-labelledby="chart-Cold-build-time-full-1000-pages-">
+  <h3 id="chart-Cold-build-time-full-1000-pages-">Cold build time (full 1000 pages) <span class="unit">(milliseconds, lower is better)</span></h3>
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59880.4767" aria-valuenow="24250.2656" aria-label="Eleventy + React: 24.25 s">
+        <div class="bar-fill" style="width: 40.50%"></div>
+      </div>
+      <div class="bar-value">24.25 s</div>
+    </div>
+    <div class="bar-row bar-row--best">
+      <div class="bar-label">Eleventy + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59880.4767" aria-valuenow="14559.38010000001" aria-label="Eleventy + Preact: 14.56 s">
+        <div class="bar-fill" style="width: 24.31%"></div>
+      </div>
+      <div class="bar-value">14.56 s <span class="best-badge">best</span></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59880.4767" aria-valuenow="26661.361800000013" aria-label="Astro + React: 26.66 s">
+        <div class="bar-fill" style="width: 44.52%"></div>
+      </div>
+      <div class="bar-value">26.66 s</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59880.4767" aria-valuenow="24002.017300000007" aria-label="Astro + Preact: 24.00 s">
+        <div class="bar-fill" style="width: 40.08%"></div>
+      </div>
+      <div class="bar-value">24.00 s</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Next.js</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59880.4767" aria-valuenow="59880.4767" aria-label="Next.js: 59.88 s">
+        <div class="bar-fill" style="width: 100.00%"></div>
+      </div>
+      <div class="bar-value">59.88 s</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">SvelteKit</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59880.4767" aria-valuenow="42601.57880000002" aria-label="SvelteKit: 42.60 s">
+        <div class="bar-fill" style="width: 71.14%"></div>
+      </div>
+      <div class="bar-value">42.60 s</div>
+    </div>
+  </div>
+</section>
+      <section class="chart" aria-labelledby="chart-Per-page-build-time">
+  <h3 id="chart-Per-page-build-time">Per-page build time <span class="unit">(milliseconds, lower is better)</span></h3>
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59.8804767" aria-valuenow="24.2502656" aria-label="Eleventy + React: 24 ms">
+        <div class="bar-fill" style="width: 40.50%"></div>
+      </div>
+      <div class="bar-value">24 ms</div>
+    </div>
+    <div class="bar-row bar-row--best">
+      <div class="bar-label">Eleventy + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59.8804767" aria-valuenow="14.55938010000001" aria-label="Eleventy + Preact: 15 ms">
+        <div class="bar-fill" style="width: 24.31%"></div>
+      </div>
+      <div class="bar-value">15 ms <span class="best-badge">best</span></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59.8804767" aria-valuenow="26.661361800000012" aria-label="Astro + React: 27 ms">
+        <div class="bar-fill" style="width: 44.52%"></div>
+      </div>
+      <div class="bar-value">27 ms</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59.8804767" aria-valuenow="24.002017300000006" aria-label="Astro + Preact: 24 ms">
+        <div class="bar-fill" style="width: 40.08%"></div>
+      </div>
+      <div class="bar-value">24 ms</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Next.js</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59.8804767" aria-valuenow="59.8804767" aria-label="Next.js: 60 ms">
+        <div class="bar-fill" style="width: 100.00%"></div>
+      </div>
+      <div class="bar-value">60 ms</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">SvelteKit</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="59.8804767" aria-valuenow="42.60157880000002" aria-label="SvelteKit: 43 ms">
+        <div class="bar-fill" style="width: 71.14%"></div>
+      </div>
+      <div class="bar-value">43 ms</div>
+    </div>
+  </div>
+</section>
+      <section class="chart" aria-labelledby="chart-Initial-JS-shipped-to-client">
+  <h3 id="chart-Initial-JS-shipped-to-client">Initial JS shipped to client <span class="unit">(bytes, lower is better)</span></h3>
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="631660" aria-valuenow="378838" aria-label="Eleventy + React: 378.8 KB">
+        <div class="bar-fill" style="width: 59.97%"></div>
+      </div>
+      <div class="bar-value">378.8 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="631660" aria-valuenow="203403" aria-label="Eleventy + Preact: 203.4 KB">
+        <div class="bar-fill" style="width: 32.20%"></div>
+      </div>
+      <div class="bar-value">203.4 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="631660" aria-valuenow="344787" aria-label="Astro + React: 344.8 KB">
+        <div class="bar-fill" style="width: 54.58%"></div>
+      </div>
+      <div class="bar-value">344.8 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="631660" aria-valuenow="164225" aria-label="Astro + Preact: 164.2 KB">
+        <div class="bar-fill" style="width: 26.00%"></div>
+      </div>
+      <div class="bar-value">164.2 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Next.js</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="631660" aria-valuenow="631660" aria-label="Next.js: 631.7 KB">
+        <div class="bar-fill" style="width: 100.00%"></div>
+      </div>
+      <div class="bar-value">631.7 KB</div>
+    </div>
+    <div class="bar-row bar-row--best">
+      <div class="bar-label">SvelteKit</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="631660" aria-valuenow="87188" aria-label="SvelteKit: 87.2 KB">
+        <div class="bar-fill" style="width: 13.80%"></div>
+      </div>
+      <div class="bar-value">87.2 KB <span class="best-badge">best</span></div>
+    </div>
+  </div>
+</section>
+      <section class="chart" aria-labelledby="chart-HTML-size-per-page-sample-">
+  <h3 id="chart-HTML-size-per-page-sample-">HTML size per page (sample) <span class="unit">(bytes, lower is better)</span></h3>
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="534313" aria-valuenow="271019" aria-label="Eleventy + React: 271.0 KB">
+        <div class="bar-fill" style="width: 50.72%"></div>
+      </div>
+      <div class="bar-value">271.0 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="534313" aria-valuenow="270946" aria-label="Eleventy + Preact: 270.9 KB">
+        <div class="bar-fill" style="width: 50.71%"></div>
+      </div>
+      <div class="bar-value">270.9 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="534313" aria-valuenow="400719" aria-label="Astro + React: 400.7 KB">
+        <div class="bar-fill" style="width: 75.00%"></div>
+      </div>
+      <div class="bar-value">400.7 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="534313" aria-valuenow="400734" aria-label="Astro + Preact: 400.7 KB">
+        <div class="bar-fill" style="width: 75.00%"></div>
+      </div>
+      <div class="bar-value">400.7 KB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Next.js</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="534313" aria-valuenow="534313" aria-label="Next.js: 534.3 KB">
+        <div class="bar-fill" style="width: 100.00%"></div>
+      </div>
+      <div class="bar-value">534.3 KB</div>
+    </div>
+    <div class="bar-row bar-row--best">
+      <div class="bar-label">SvelteKit</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="534313" aria-valuenow="261647" aria-label="SvelteKit: 261.6 KB">
+        <div class="bar-fill" style="width: 48.97%"></div>
+      </div>
+      <div class="bar-value">261.6 KB <span class="best-badge">best</span></div>
+    </div>
+  </div>
+</section>
+      <section class="chart" aria-labelledby="chart-Total-output-on-disk">
+  <h3 id="chart-Total-output-on-disk">Total output on disk <span class="unit">(bytes, lower is better)</span></h3>
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="1978927758" aria-valuenow="344315222" aria-label="Eleventy + React: 344.32 MB">
+        <div class="bar-fill" style="width: 17.40%"></div>
+      </div>
+      <div class="bar-value">344.32 MB</div>
+    </div>
+    <div class="bar-row bar-row--best">
+      <div class="bar-label">Eleventy + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="1978927758" aria-valuenow="344064607" aria-label="Eleventy + Preact: 344.06 MB">
+        <div class="bar-fill" style="width: 17.39%"></div>
+      </div>
+      <div class="bar-value">344.06 MB <span class="best-badge">best</span></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="1978927758" aria-valuenow="507268380" aria-label="Astro + React: 507.27 MB">
+        <div class="bar-fill" style="width: 25.63%"></div>
+      </div>
+      <div class="bar-value">507.27 MB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="1978927758" aria-valuenow="507116687" aria-label="Astro + Preact: 507.12 MB">
+        <div class="bar-fill" style="width: 25.63%"></div>
+      </div>
+      <div class="bar-value">507.12 MB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Next.js</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="1978927758" aria-valuenow="1978927758" aria-label="Next.js: 1978.93 MB">
+        <div class="bar-fill" style="width: 100.00%"></div>
+      </div>
+      <div class="bar-value">1978.93 MB</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">SvelteKit</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="1978927758" aria-valuenow="470181293" aria-label="SvelteKit: 470.18 MB">
+        <div class="bar-fill" style="width: 23.76%"></div>
+      </div>
+      <div class="bar-value">470.18 MB</div>
+    </div>
+  </div>
+</section>
+      <section class="chart" aria-labelledby="chart-Source-lines-of-code-app-only-">
+  <h3 id="chart-Source-lines-of-code-app-only-">Source lines of code (app-only) <span class="unit">(lines, lower is better)</span></h3>
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="634" aria-valuenow="625" aria-label="Eleventy + React: 625">
+        <div class="bar-fill" style="width: 98.58%"></div>
+      </div>
+      <div class="bar-value">625</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Eleventy + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="634" aria-valuenow="634" aria-label="Eleventy + Preact: 634">
+        <div class="bar-fill" style="width: 100.00%"></div>
+      </div>
+      <div class="bar-value">634</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + React</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="634" aria-valuenow="519" aria-label="Astro + React: 519">
+        <div class="bar-fill" style="width: 81.86%"></div>
+      </div>
+      <div class="bar-value">519</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Astro + Preact</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="634" aria-valuenow="517" aria-label="Astro + Preact: 517">
+        <div class="bar-fill" style="width: 81.55%"></div>
+      </div>
+      <div class="bar-value">517</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Next.js</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="634" aria-valuenow="549" aria-label="Next.js: 549">
+        <div class="bar-fill" style="width: 86.59%"></div>
+      </div>
+      <div class="bar-value">549</div>
+    </div>
+    <div class="bar-row bar-row--best">
+      <div class="bar-label">SvelteKit</div>
+      <div class="bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="634" aria-valuenow="484" aria-label="SvelteKit: 484">
+        <div class="bar-fill" style="width: 76.34%"></div>
+      </div>
+      <div class="bar-value">484 <span class="best-badge">best</span></div>
+    </div>
+  </div>
+</section>
+    </div>
+
+    <h2>Per-framework detail</h2>
+    <div class="cards">
+      <article class="card" id="app-eleventy-react">
+        <h3>Eleventy + React</h3>
+        <dl class="kv">
+          <dt>Cold build (median of 3)</dt>
+          <dd>24.25 s</dd>
+          <dt>Best / worst</dt>
+          <dd>23.18 s / 29.14 s</dd>
+          <dt>Per page</dt>
+          <dd>24 ms</dd>
+          <dt>Initial JS</dt>
+          <dd>378.8 KB</dd>
+          <dt>Initial CSS</dt>
+          <dd>4.9 KB</dd>
+          <dt>Total JS (incl. lazy)</dt>
+          <dd>378.8 KB</dd>
+          <dt>HTML / page</dt>
+          <dd>271.0 KB</dd>
+          <dt>Output total on disk</dt>
+          <dd>344.32 MB</dd>
+          <dt>Source files</dt>
+          <dd>13</dd>
+          <dt>Source LOC</dt>
+          <dd>625</dd>
+        </dl>
+        <details>
+          <summary>LOC by extension</summary>
+          <ul><li><code>.tsx</code>: 309 LOC across 8 files</li><li><code>.css</code>: 194 LOC across 1 files</li><li><code>.mjs</code>: 92 LOC across 2 files</li><li><code>.js</code>: 19 LOC across 1 files</li><li><code>.ts</code>: 11 LOC across 1 files</li></ul>
+        </details>
+      </article>
+      <article class="card" id="app-eleventy-preact">
+        <h3>Eleventy + Preact</h3>
+        <dl class="kv">
+          <dt>Cold build (median of 3)</dt>
+          <dd>14.56 s</dd>
+          <dt>Best / worst</dt>
+          <dd>12.52 s / 19.21 s</dd>
+          <dt>Per page</dt>
+          <dd>15 ms</dd>
+          <dt>Initial JS</dt>
+          <dd>203.4 KB</dd>
+          <dt>Initial CSS</dt>
+          <dd>4.9 KB</dd>
+          <dt>Total JS (incl. lazy)</dt>
+          <dd>203.4 KB</dd>
+          <dt>HTML / page</dt>
+          <dd>270.9 KB</dd>
+          <dt>Output total on disk</dt>
+          <dd>344.06 MB</dd>
+          <dt>Source files</dt>
+          <dd>13</dd>
+          <dt>Source LOC</dt>
+          <dd>634</dd>
+        </dl>
+        <details>
+          <summary>LOC by extension</summary>
+          <ul><li><code>.tsx</code>: 309 LOC across 8 files</li><li><code>.css</code>: 194 LOC across 1 files</li><li><code>.mjs</code>: 101 LOC across 2 files</li><li><code>.js</code>: 19 LOC across 1 files</li><li><code>.ts</code>: 11 LOC across 1 files</li></ul>
+        </details>
+      </article>
+      <article class="card" id="app-astro-react">
+        <h3>Astro + React</h3>
+        <dl class="kv">
+          <dt>Cold build (median of 3)</dt>
+          <dd>26.66 s</dd>
+          <dt>Best / worst</dt>
+          <dd>25.04 s / 60.04 s</dd>
+          <dt>Per page</dt>
+          <dd>27 ms</dd>
+          <dt>Initial JS</dt>
+          <dd>344.8 KB</dd>
+          <dt>Initial CSS</dt>
+          <dd>4.9 KB</dd>
+          <dt>Total JS (incl. lazy)</dt>
+          <dd>364.0 KB</dd>
+          <dt>HTML / page</dt>
+          <dd>400.7 KB</dd>
+          <dt>Output total on disk</dt>
+          <dd>507.27 MB</dd>
+          <dt>Source files</dt>
+          <dd>9</dd>
+          <dt>Source LOC</dt>
+          <dd>519</dd>
+        </dl>
+        <details>
+          <summary>LOC by extension</summary>
+          <ul><li><code>.css</code>: 194 LOC across 1 files</li><li><code>.tsx</code>: 190 LOC across 2 files</li><li><code>.astro</code>: 87 LOC across 3 files</li><li><code>.mjs</code>: 37 LOC across 2 files</li><li><code>.ts</code>: 11 LOC across 1 files</li></ul>
+        </details>
+      </article>
+      <article class="card" id="app-astro-preact">
+        <h3>Astro + Preact</h3>
+        <dl class="kv">
+          <dt>Cold build (median of 3)</dt>
+          <dd>24.00 s</dd>
+          <dt>Best / worst</dt>
+          <dd>23.29 s / 24.94 s</dd>
+          <dt>Per page</dt>
+          <dd>24 ms</dd>
+          <dt>Initial JS</dt>
+          <dd>164.2 KB</dd>
+          <dt>Initial CSS</dt>
+          <dd>4.9 KB</dd>
+          <dt>Total JS (incl. lazy)</dt>
+          <dd>198.3 KB</dd>
+          <dt>HTML / page</dt>
+          <dd>400.7 KB</dd>
+          <dt>Output total on disk</dt>
+          <dd>507.12 MB</dd>
+          <dt>Source files</dt>
+          <dd>9</dd>
+          <dt>Source LOC</dt>
+          <dd>517</dd>
+        </dl>
+        <details>
+          <summary>LOC by extension</summary>
+          <ul><li><code>.css</code>: 194 LOC across 1 files</li><li><code>.tsx</code>: 190 LOC across 2 files</li><li><code>.astro</code>: 87 LOC across 3 files</li><li><code>.mjs</code>: 35 LOC across 2 files</li><li><code>.ts</code>: 11 LOC across 1 files</li></ul>
+        </details>
+      </article>
+      <article class="card" id="app-nextjs">
+        <h3>Next.js</h3>
+        <dl class="kv">
+          <dt>Cold build (median of 3)</dt>
+          <dd>59.88 s</dd>
+          <dt>Best / worst</dt>
+          <dd>55.01 s / 71.58 s</dd>
+          <dt>Per page</dt>
+          <dd>60 ms</dd>
+          <dt>Initial JS</dt>
+          <dd>631.7 KB</dd>
+          <dt>Initial CSS</dt>
+          <dd>151.1 KB</dd>
+          <dt>Total JS (incl. lazy)</dt>
+          <dd>918.3 KB</dd>
+          <dt>HTML / page</dt>
+          <dd>534.3 KB</dd>
+          <dt>Output total on disk</dt>
+          <dd>1978.93 MB</dd>
+          <dt>Source files</dt>
+          <dd>10</dd>
+          <dt>Source LOC</dt>
+          <dd>549</dd>
+        </dl>
+        <details>
+          <summary>LOC by extension</summary>
+          <ul><li><code>.tsx</code>: 283 LOC across 4 files</li><li><code>.css</code>: 194 LOC across 1 files</li><li><code>.mjs</code>: 50 LOC across 2 files</li><li><code>.ts</code>: 22 LOC across 3 files</li></ul>
+        </details>
+      </article>
+      <article class="card" id="app-sveltekit">
+        <h3>SvelteKit</h3>
+        <dl class="kv">
+          <dt>Cold build (median of 3)</dt>
+          <dd>42.60 s</dd>
+          <dt>Best / worst</dt>
+          <dd>35.94 s / 68.36 s</dd>
+          <dt>Per page</dt>
+          <dd>43 ms</dd>
+          <dt>Initial JS</dt>
+          <dd>87.2 KB</dd>
+          <dt>Initial CSS</dt>
+          <dd>4.9 KB</dd>
+          <dt>Total JS (incl. lazy)</dt>
+          <dd>252.7 KB</dd>
+          <dt>HTML / page</dt>
+          <dd>261.6 KB</dd>
+          <dt>Output total on disk</dt>
+          <dd>470.18 MB</dd>
+          <dt>Source files</dt>
+          <dd>10</dd>
+          <dt>Source LOC</dt>
+          <dd>484</dd>
+        </dl>
+        <details>
+          <summary>LOC by extension</summary>
+          <ul><li><code>.svelte</code>: 214 LOC across 4 files</li><li><code>.css</code>: 194 LOC across 1 files</li><li><code>.mjs</code>: 29 LOC across 1 files</li><li><code>.ts</code>: 27 LOC across 3 files</li><li><code>.js</code>: 20 LOC across 1 files</li></ul>
+        </details>
+      </article></div>
+
+    <footer class="meta">
+      Generated 2026-05-20T17:11:18.980Z from <code>bench/run.ts</code>.
+      Source: <a href="https://github.com/">repo</a>.
+      See <a href="report.md"><code>report.md</code></a> for a plain-text version.
+    </footer>
+  </div>
+</body>
 </html>

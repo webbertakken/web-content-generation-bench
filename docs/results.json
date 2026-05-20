@@ -6,21 +6,21 @@
       "id": "eleventy-react",
       "label": "Eleventy + React",
       "scale": 1000,
-      "medianMs": 34559.5209,
-      "bestMs": 32298.7243,
-      "worstMs": 41035.0455,
-      "msPerPage": 34.5595209,
+      "medianMs": 24250.2656,
+      "bestMs": 23184.204399999995,
+      "worstMs": 29138.6688,
+      "msPerPage": 24.2502656,
       "bundle": {
         "initialJs": 378838,
-        "initialCss": 3456,
+        "initialCss": 4926,
         "totalJs": 378838,
-        "totalCss": 3456,
-        "htmlSampleBytes": 270697,
-        "totalOutputBytes": 343812258
+        "totalCss": 174388,
+        "htmlSampleBytes": 271019,
+        "totalOutputBytes": 344315222
       },
       "code": {
         "files": 13,
-        "loc": 586,
+        "loc": 625,
         "byExt": {
           ".mjs": {
             "files": 2,
@@ -28,7 +28,7 @@
           },
           ".tsx": {
             "files": 8,
-            "loc": 302
+            "loc": 309
           },
           ".ts": {
             "files": 1,
@@ -40,7 +40,7 @@
           },
           ".css": {
             "files": 1,
-            "loc": 162
+            "loc": 194
           }
         }
       }
@@ -49,21 +49,21 @@
       "id": "eleventy-preact",
       "label": "Eleventy + Preact",
       "scale": 1000,
-      "medianMs": 11846.406400000007,
-      "bestMs": 11811.442299999995,
-      "worstMs": 14195.362399999984,
-      "msPerPage": 11.846406400000006,
+      "medianMs": 14559.38010000001,
+      "bestMs": 12515.155400000003,
+      "worstMs": 19212.677200000006,
+      "msPerPage": 14.55938010000001,
       "bundle": {
         "initialJs": 203403,
-        "initialCss": 3456,
+        "initialCss": 4926,
         "totalJs": 203403,
-        "totalCss": 3456,
-        "htmlSampleBytes": 270627,
-        "totalOutputBytes": 343564643
+        "totalCss": 174388,
+        "htmlSampleBytes": 270946,
+        "totalOutputBytes": 344064607
       },
       "code": {
         "files": 13,
-        "loc": 595,
+        "loc": 634,
         "byExt": {
           ".mjs": {
             "files": 2,
@@ -71,7 +71,7 @@
           },
           ".tsx": {
             "files": 8,
-            "loc": 302
+            "loc": 309
           },
           ".ts": {
             "files": 1,
@@ -83,7 +83,7 @@
           },
           ".css": {
             "files": 1,
-            "loc": 162
+            "loc": 194
           }
         }
       }
@@ -92,29 +92,29 @@
       "id": "astro-react",
       "label": "Astro + React",
       "scale": 1000,
-      "medianMs": 31223.68160000001,
-      "bestMs": 27972.708000000013,
-      "worstMs": 50302.63810000001,
-      "msPerPage": 31.22368160000001,
+      "medianMs": 26661.361800000013,
+      "bestMs": 25038.28880000001,
+      "worstMs": 60037.3827,
+      "msPerPage": 26.661361800000012,
       "bundle": {
         "initialJs": 344787,
-        "initialCss": 3456,
+        "initialCss": 4926,
         "totalJs": 364005,
-        "totalCss": 3456,
-        "htmlSampleBytes": 400411,
-        "totalOutputBytes": 506779406
+        "totalCss": 174388,
+        "htmlSampleBytes": 400719,
+        "totalOutputBytes": 507268380
       },
       "code": {
         "files": 9,
-        "loc": 479,
+        "loc": 519,
         "byExt": {
           ".mjs": {
             "files": 2,
-            "loc": 35
+            "loc": 37
           },
           ".css": {
             "files": 1,
-            "loc": 162
+            "loc": 194
           },
           ".tsx": {
             "files": 2,
@@ -122,7 +122,50 @@
           },
           ".astro": {
             "files": 3,
-            "loc": 81
+            "loc": 87
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "astro-preact",
+      "label": "Astro + Preact",
+      "scale": 1000,
+      "medianMs": 24002.017300000007,
+      "bestMs": 23286.195000000007,
+      "worstMs": 24943.027000000002,
+      "msPerPage": 24.002017300000006,
+      "bundle": {
+        "initialJs": 164225,
+        "initialCss": 4926,
+        "totalJs": 198277,
+        "totalCss": 174388,
+        "htmlSampleBytes": 400734,
+        "totalOutputBytes": 507116687
+      },
+      "code": {
+        "files": 9,
+        "loc": 517,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 35
+          },
+          ".css": {
+            "files": 1,
+            "loc": 194
+          },
+          ".tsx": {
+            "files": 2,
+            "loc": 190
+          },
+          ".astro": {
+            "files": 3,
+            "loc": 87
           },
           ".ts": {
             "files": 1,
@@ -135,29 +178,29 @@
       "id": "nextjs",
       "label": "Next.js",
       "scale": 1000,
-      "medianMs": 68323.62109999999,
-      "bestMs": 63476.35909999997,
-      "worstMs": 95998.68180000002,
-      "msPerPage": 68.32362109999998,
+      "medianMs": 59880.4767,
+      "bestMs": 55014.85200000001,
+      "worstMs": 71578.71899999998,
+      "msPerPage": 59.8804767,
       "bundle": {
         "initialJs": 631660,
-        "initialCss": 2847,
+        "initialCss": 151133,
         "totalJs": 918275,
-        "totalCss": 2847,
-        "htmlSampleBytes": 532642,
-        "totalOutputBytes": 1974284258
+        "totalCss": 151133,
+        "htmlSampleBytes": 534313,
+        "totalOutputBytes": 1978927758
       },
       "code": {
         "files": 10,
-        "loc": 505,
+        "loc": 549,
         "byExt": {
           ".css": {
             "files": 1,
-            "loc": 162
+            "loc": 194
           },
           ".tsx": {
             "files": 4,
-            "loc": 274
+            "loc": 283
           },
           ".ts": {
             "files": 3,
@@ -165,7 +208,7 @@
           },
           ".mjs": {
             "files": 2,
-            "loc": 47
+            "loc": 50
           }
         }
       }
@@ -174,21 +217,21 @@
       "id": "sveltekit",
       "label": "SvelteKit",
       "scale": 1000,
-      "medianMs": 35227.03470000002,
-      "bestMs": 24607.105500000005,
-      "worstMs": 40869.98419999995,
-      "msPerPage": 35.22703470000002,
+      "medianMs": 42601.57880000002,
+      "bestMs": 35942.25549999997,
+      "worstMs": 68358.41709999996,
+      "msPerPage": 42.60157880000002,
       "bundle": {
-        "initialJs": 84157,
-        "initialCss": 3456,
-        "totalJs": 249625,
-        "totalCss": 3456,
-        "htmlSampleBytes": 141491,
-        "totalOutputBytes": 178336281
+        "initialJs": 87188,
+        "initialCss": 4926,
+        "totalJs": 252656,
+        "totalCss": 174388,
+        "htmlSampleBytes": 261647,
+        "totalOutputBytes": 470181293
       },
       "code": {
         "files": 10,
-        "loc": 447,
+        "loc": 484,
         "byExt": {
           ".mjs": {
             "files": 1,
@@ -196,7 +239,7 @@
           },
           ".svelte": {
             "files": 4,
-            "loc": 211
+            "loc": 214
           },
           ".ts": {
             "files": 3,
@@ -204,11 +247,11 @@
           },
           ".css": {
             "files": 1,
-            "loc": 162
+            "loc": 194
           },
           ".js": {
             "files": 1,
-            "loc": 18
+            "loc": 20
           }
         }
       }
@@ -218,29 +261,29 @@
     "eleventy-react": {
       "cold": [
         {
-          "ms": 41035.0455,
+          "ms": 24250.2656,
           "ok": true
         },
         {
-          "ms": 32298.7243,
+          "ms": 29138.6688,
           "ok": true
         },
         {
-          "ms": 34559.5209,
+          "ms": 23184.204399999995,
           "ok": true
         }
       ],
       "bundle": {
         "initialJs": 378838,
-        "initialCss": 3456,
+        "initialCss": 4926,
         "totalJs": 378838,
-        "totalCss": 3456,
-        "htmlSampleBytes": 270697,
-        "totalOutputBytes": 343812258
+        "totalCss": 174388,
+        "htmlSampleBytes": 271019,
+        "totalOutputBytes": 344315222
       },
       "code": {
-        "files": 13,
-        "loc": 586,
+        "files": 14,
+        "loc": 3325,
         "byExt": {
           ".mjs": {
             "files": 2,
@@ -248,7 +291,7 @@
           },
           ".tsx": {
             "files": 8,
-            "loc": 302
+            "loc": 309
           },
           ".ts": {
             "files": 1,
@@ -259,8 +302,8 @@
             "loc": 19
           },
           ".css": {
-            "files": 1,
-            "loc": 162
+            "files": 2,
+            "loc": 2894
           }
         }
       },
@@ -269,29 +312,29 @@
     "eleventy-preact": {
       "cold": [
         {
-          "ms": 11846.406400000007,
+          "ms": 12515.155400000003,
           "ok": true
         },
         {
-          "ms": 14195.362399999984,
+          "ms": 19212.677200000006,
           "ok": true
         },
         {
-          "ms": 11811.442299999995,
+          "ms": 14559.38010000001,
           "ok": true
         }
       ],
       "bundle": {
         "initialJs": 203403,
-        "initialCss": 3456,
+        "initialCss": 4926,
         "totalJs": 203403,
-        "totalCss": 3456,
-        "htmlSampleBytes": 270627,
-        "totalOutputBytes": 343564643
+        "totalCss": 174388,
+        "htmlSampleBytes": 270946,
+        "totalOutputBytes": 344064607
       },
       "code": {
-        "files": 13,
-        "loc": 595,
+        "files": 14,
+        "loc": 3334,
         "byExt": {
           ".mjs": {
             "files": 2,
@@ -299,7 +342,7 @@
           },
           ".tsx": {
             "files": 8,
-            "loc": 302
+            "loc": 309
           },
           ".ts": {
             "files": 1,
@@ -310,8 +353,8 @@
             "loc": 19
           },
           ".css": {
-            "files": 1,
-            "loc": 162
+            "files": 2,
+            "loc": 2894
           }
         }
       },
@@ -320,37 +363,37 @@
     "astro-react": {
       "cold": [
         {
-          "ms": 31223.68160000001,
+          "ms": 60037.3827,
           "ok": true
         },
         {
-          "ms": 50302.63810000001,
+          "ms": 26661.361800000013,
           "ok": true
         },
         {
-          "ms": 27972.708000000013,
+          "ms": 25038.28880000001,
           "ok": true
         }
       ],
       "bundle": {
-        "initialJs": 0,
-        "initialCss": 3456,
+        "initialJs": 344787,
+        "initialCss": 4926,
         "totalJs": 364005,
-        "totalCss": 3456,
-        "htmlSampleBytes": 400411,
-        "totalOutputBytes": 506779406
+        "totalCss": 174388,
+        "htmlSampleBytes": 400719,
+        "totalOutputBytes": 507268380
       },
       "code": {
-        "files": 9,
-        "loc": 479,
+        "files": 10,
+        "loc": 3219,
         "byExt": {
           ".mjs": {
             "files": 2,
-            "loc": 35
+            "loc": 37
           },
           ".css": {
-            "files": 1,
-            "loc": 162
+            "files": 2,
+            "loc": 2894
           },
           ".tsx": {
             "files": 2,
@@ -358,7 +401,58 @@
           },
           ".astro": {
             "files": 3,
-            "loc": 81
+            "loc": 87
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          }
+        }
+      },
+      "scale": 1000
+    },
+    "astro-preact": {
+      "cold": [
+        {
+          "ms": 24943.027000000002,
+          "ok": true
+        },
+        {
+          "ms": 24002.017300000007,
+          "ok": true
+        },
+        {
+          "ms": 23286.195000000007,
+          "ok": true
+        }
+      ],
+      "bundle": {
+        "initialJs": 164225,
+        "initialCss": 4926,
+        "totalJs": 198277,
+        "totalCss": 174388,
+        "htmlSampleBytes": 400734,
+        "totalOutputBytes": 507116687
+      },
+      "code": {
+        "files": 10,
+        "loc": 3217,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 35
+          },
+          ".css": {
+            "files": 2,
+            "loc": 2894
+          },
+          ".tsx": {
+            "files": 2,
+            "loc": 190
+          },
+          ".astro": {
+            "files": 3,
+            "loc": 87
           },
           ".ts": {
             "files": 1,
@@ -371,37 +465,37 @@
     "nextjs": {
       "cold": [
         {
-          "ms": 63476.35909999997,
+          "ms": 55014.85200000001,
           "ok": true
         },
         {
-          "ms": 68323.62109999999,
+          "ms": 59880.4767,
           "ok": true
         },
         {
-          "ms": 95998.68180000002,
+          "ms": 71578.71899999998,
           "ok": true
         }
       ],
       "bundle": {
         "initialJs": 631660,
-        "initialCss": 2847,
+        "initialCss": 151133,
         "totalJs": 918275,
-        "totalCss": 2847,
-        "htmlSampleBytes": 532642,
-        "totalOutputBytes": 1974284258
+        "totalCss": 151133,
+        "htmlSampleBytes": 534313,
+        "totalOutputBytes": 1978927758
       },
       "code": {
-        "files": 10,
-        "loc": 505,
+        "files": 11,
+        "loc": 3249,
         "byExt": {
           ".css": {
-            "files": 1,
-            "loc": 162
+            "files": 2,
+            "loc": 2894
           },
           ".tsx": {
             "files": 4,
-            "loc": 274
+            "loc": 283
           },
           ".ts": {
             "files": 3,
@@ -409,7 +503,7 @@
           },
           ".mjs": {
             "files": 2,
-            "loc": 47
+            "loc": 50
           }
         }
       },
@@ -418,29 +512,29 @@
     "sveltekit": {
       "cold": [
         {
-          "ms": 35227.03470000002,
+          "ms": 42601.57880000002,
           "ok": true
         },
         {
-          "ms": 24607.105500000005,
+          "ms": 68358.41709999996,
           "ok": true
         },
         {
-          "ms": 40869.98419999995,
+          "ms": 35942.25549999997,
           "ok": true
         }
       ],
       "bundle": {
-        "initialJs": 0,
-        "initialCss": 0,
-        "totalJs": 249625,
-        "totalCss": 3456,
-        "htmlSampleBytes": 141491,
-        "totalOutputBytes": 178336281
+        "initialJs": 87188,
+        "initialCss": 4926,
+        "totalJs": 252656,
+        "totalCss": 174388,
+        "htmlSampleBytes": 261647,
+        "totalOutputBytes": 470181293
       },
       "code": {
-        "files": 10,
-        "loc": 447,
+        "files": 11,
+        "loc": 3184,
         "byExt": {
           ".mjs": {
             "files": 1,
@@ -448,24 +542,24 @@
           },
           ".svelte": {
             "files": 4,
-            "loc": 211
+            "loc": 214
           },
           ".ts": {
             "files": 3,
             "loc": 27
           },
           ".css": {
-            "files": 1,
-            "loc": 162
+            "files": 2,
+            "loc": 2894
           },
           ".js": {
             "files": 1,
-            "loc": 18
+            "loc": 20
           }
         }
       },
       "scale": 1000
     }
   },
-  "generatedAt": "2026-05-20T14:41:46.600Z"
+  "generatedAt": "2026-05-20T17:09:37.233Z"
 }

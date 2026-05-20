@@ -26,6 +26,9 @@ const IGNORE_DIRS = new Set([
   'out',
   '.turbo',
 ]);
+// Files synced from npm dependencies rather than hand-written. Counted as
+// vendor, not as app source code.
+const VENDOR_FILES = new Set(['pie-tokens.css']);
 
 const isMeaningfulLine = (line: string): boolean => {
   const trimmed = line.trim();
@@ -78,6 +81,7 @@ export const collectCodeStats = (root: string): CodeStats => {
       }
       const ext = extname(entry);
       if (!SOURCE_EXTS.has(ext)) continue;
+      if (VENDOR_FILES.has(entry)) continue;
       let content;
       try {
         content = readFileSync(fullPath, 'utf8');
