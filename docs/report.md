@@ -1,7 +1,7 @@
 # Benchmark report
 
 Pages built per app: **1000**. Runs per app: **3** (median reported).
-Generated: 2026-05-20T14:46:07.662Z.
+Generated: 2026-05-20T16:48:17.498Z.
 
 | Framework         | Cold build | Per page | Initial JS | Initial CSS | Total JS | HTML/page | Output total | Source LOC | Files |
 | ----------------- | ---------- | -------- | ---------- | ----------- | -------- | --------- | ------------ | ---------- | ----- |

@@ -140,10 +140,13 @@ const docsDir = resolve(REPO_ROOT, 'docs');
 mkdirSync(docsDir, { recursive: true });
 writeFileSync(resolve(docsDir, 'report.md'), md);
 writeFileSync(resolve(docsDir, 'index.html'), html);
+// docs/results.json is the canonical 'latest published' snapshot so the
+// deploy landing page can embed numbers without running the bench in CI.
+writeFileSync(resolve(docsDir, 'results.json'), JSON.stringify(stored, null, 2));
 
 // Also drop them into the original results dir for archival.
 const resultsDir = resolve(inputPath, '..');
 writeFileSync(resolve(resultsDir, 'report.md'), md);
 writeFileSync(resolve(resultsDir, 'index.html'), html);
 
-console.log(`[render-reports] wrote docs/index.html and docs/report.md`);
+console.log(`[render-reports] wrote docs/{index.html,report.md,results.json}`);

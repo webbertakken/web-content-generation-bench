@@ -1,0 +1,471 @@
+{
+  "scale": 1000,
+  "runs": 3,
+  "rows": [
+    {
+      "id": "eleventy-react",
+      "label": "Eleventy + React",
+      "scale": 1000,
+      "medianMs": 34559.5209,
+      "bestMs": 32298.7243,
+      "worstMs": 41035.0455,
+      "msPerPage": 34.5595209,
+      "bundle": {
+        "initialJs": 378838,
+        "initialCss": 3456,
+        "totalJs": 378838,
+        "totalCss": 3456,
+        "htmlSampleBytes": 270697,
+        "totalOutputBytes": 343812258
+      },
+      "code": {
+        "files": 13,
+        "loc": 586,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 92
+          },
+          ".tsx": {
+            "files": 8,
+            "loc": 302
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          },
+          ".js": {
+            "files": 1,
+            "loc": 19
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          }
+        }
+      }
+    },
+    {
+      "id": "eleventy-preact",
+      "label": "Eleventy + Preact",
+      "scale": 1000,
+      "medianMs": 11846.406400000007,
+      "bestMs": 11811.442299999995,
+      "worstMs": 14195.362399999984,
+      "msPerPage": 11.846406400000006,
+      "bundle": {
+        "initialJs": 203403,
+        "initialCss": 3456,
+        "totalJs": 203403,
+        "totalCss": 3456,
+        "htmlSampleBytes": 270627,
+        "totalOutputBytes": 343564643
+      },
+      "code": {
+        "files": 13,
+        "loc": 595,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 101
+          },
+          ".tsx": {
+            "files": 8,
+            "loc": 302
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          },
+          ".js": {
+            "files": 1,
+            "loc": 19
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          }
+        }
+      }
+    },
+    {
+      "id": "astro-react",
+      "label": "Astro + React",
+      "scale": 1000,
+      "medianMs": 31223.68160000001,
+      "bestMs": 27972.708000000013,
+      "worstMs": 50302.63810000001,
+      "msPerPage": 31.22368160000001,
+      "bundle": {
+        "initialJs": 344787,
+        "initialCss": 3456,
+        "totalJs": 364005,
+        "totalCss": 3456,
+        "htmlSampleBytes": 400411,
+        "totalOutputBytes": 506779406
+      },
+      "code": {
+        "files": 9,
+        "loc": 479,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 35
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          },
+          ".tsx": {
+            "files": 2,
+            "loc": 190
+          },
+          ".astro": {
+            "files": 3,
+            "loc": 81
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "nextjs",
+      "label": "Next.js",
+      "scale": 1000,
+      "medianMs": 68323.62109999999,
+      "bestMs": 63476.35909999997,
+      "worstMs": 95998.68180000002,
+      "msPerPage": 68.32362109999998,
+      "bundle": {
+        "initialJs": 631660,
+        "initialCss": 2847,
+        "totalJs": 918275,
+        "totalCss": 2847,
+        "htmlSampleBytes": 532642,
+        "totalOutputBytes": 1974284258
+      },
+      "code": {
+        "files": 10,
+        "loc": 505,
+        "byExt": {
+          ".css": {
+            "files": 1,
+            "loc": 162
+          },
+          ".tsx": {
+            "files": 4,
+            "loc": 274
+          },
+          ".ts": {
+            "files": 3,
+            "loc": 22
+          },
+          ".mjs": {
+            "files": 2,
+            "loc": 47
+          }
+        }
+      }
+    },
+    {
+      "id": "sveltekit",
+      "label": "SvelteKit",
+      "scale": 1000,
+      "medianMs": 35227.03470000002,
+      "bestMs": 24607.105500000005,
+      "worstMs": 40869.98419999995,
+      "msPerPage": 35.22703470000002,
+      "bundle": {
+        "initialJs": 84157,
+        "initialCss": 3456,
+        "totalJs": 249625,
+        "totalCss": 3456,
+        "htmlSampleBytes": 141491,
+        "totalOutputBytes": 178336281
+      },
+      "code": {
+        "files": 10,
+        "loc": 447,
+        "byExt": {
+          ".mjs": {
+            "files": 1,
+            "loc": 29
+          },
+          ".svelte": {
+            "files": 4,
+            "loc": 211
+          },
+          ".ts": {
+            "files": 3,
+            "loc": 27
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          },
+          ".js": {
+            "files": 1,
+            "loc": 18
+          }
+        }
+      }
+    }
+  ],
+  "results": {
+    "eleventy-react": {
+      "cold": [
+        {
+          "ms": 41035.0455,
+          "ok": true
+        },
+        {
+          "ms": 32298.7243,
+          "ok": true
+        },
+        {
+          "ms": 34559.5209,
+          "ok": true
+        }
+      ],
+      "bundle": {
+        "initialJs": 378838,
+        "initialCss": 3456,
+        "totalJs": 378838,
+        "totalCss": 3456,
+        "htmlSampleBytes": 270697,
+        "totalOutputBytes": 343812258
+      },
+      "code": {
+        "files": 13,
+        "loc": 586,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 92
+          },
+          ".tsx": {
+            "files": 8,
+            "loc": 302
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          },
+          ".js": {
+            "files": 1,
+            "loc": 19
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          }
+        }
+      },
+      "scale": 1000
+    },
+    "eleventy-preact": {
+      "cold": [
+        {
+          "ms": 11846.406400000007,
+          "ok": true
+        },
+        {
+          "ms": 14195.362399999984,
+          "ok": true
+        },
+        {
+          "ms": 11811.442299999995,
+          "ok": true
+        }
+      ],
+      "bundle": {
+        "initialJs": 203403,
+        "initialCss": 3456,
+        "totalJs": 203403,
+        "totalCss": 3456,
+        "htmlSampleBytes": 270627,
+        "totalOutputBytes": 343564643
+      },
+      "code": {
+        "files": 13,
+        "loc": 595,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 101
+          },
+          ".tsx": {
+            "files": 8,
+            "loc": 302
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          },
+          ".js": {
+            "files": 1,
+            "loc": 19
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          }
+        }
+      },
+      "scale": 1000
+    },
+    "astro-react": {
+      "cold": [
+        {
+          "ms": 31223.68160000001,
+          "ok": true
+        },
+        {
+          "ms": 50302.63810000001,
+          "ok": true
+        },
+        {
+          "ms": 27972.708000000013,
+          "ok": true
+        }
+      ],
+      "bundle": {
+        "initialJs": 0,
+        "initialCss": 3456,
+        "totalJs": 364005,
+        "totalCss": 3456,
+        "htmlSampleBytes": 400411,
+        "totalOutputBytes": 506779406
+      },
+      "code": {
+        "files": 9,
+        "loc": 479,
+        "byExt": {
+          ".mjs": {
+            "files": 2,
+            "loc": 35
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          },
+          ".tsx": {
+            "files": 2,
+            "loc": 190
+          },
+          ".astro": {
+            "files": 3,
+            "loc": 81
+          },
+          ".ts": {
+            "files": 1,
+            "loc": 11
+          }
+        }
+      },
+      "scale": 1000
+    },
+    "nextjs": {
+      "cold": [
+        {
+          "ms": 63476.35909999997,
+          "ok": true
+        },
+        {
+          "ms": 68323.62109999999,
+          "ok": true
+        },
+        {
+          "ms": 95998.68180000002,
+          "ok": true
+        }
+      ],
+      "bundle": {
+        "initialJs": 631660,
+        "initialCss": 2847,
+        "totalJs": 918275,
+        "totalCss": 2847,
+        "htmlSampleBytes": 532642,
+        "totalOutputBytes": 1974284258
+      },
+      "code": {
+        "files": 10,
+        "loc": 505,
+        "byExt": {
+          ".css": {
+            "files": 1,
+            "loc": 162
+          },
+          ".tsx": {
+            "files": 4,
+            "loc": 274
+          },
+          ".ts": {
+            "files": 3,
+            "loc": 22
+          },
+          ".mjs": {
+            "files": 2,
+            "loc": 47
+          }
+        }
+      },
+      "scale": 1000
+    },
+    "sveltekit": {
+      "cold": [
+        {
+          "ms": 35227.03470000002,
+          "ok": true
+        },
+        {
+          "ms": 24607.105500000005,
+          "ok": true
+        },
+        {
+          "ms": 40869.98419999995,
+          "ok": true
+        }
+      ],
+      "bundle": {
+        "initialJs": 0,
+        "initialCss": 0,
+        "totalJs": 249625,
+        "totalCss": 3456,
+        "htmlSampleBytes": 141491,
+        "totalOutputBytes": 178336281
+      },
+      "code": {
+        "files": 10,
+        "loc": 447,
+        "byExt": {
+          ".mjs": {
+            "files": 1,
+            "loc": 29
+          },
+          ".svelte": {
+            "files": 4,
+            "loc": 211
+          },
+          ".ts": {
+            "files": 3,
+            "loc": 27
+          },
+          ".css": {
+            "files": 1,
+            "loc": 162
+          },
+          ".js": {
+            "files": 1,
+            "loc": 18
+          }
+        }
+      },
+      "scale": 1000
+    }
+  },
+  "generatedAt": "2026-05-20T14:41:46.600Z"
+}
